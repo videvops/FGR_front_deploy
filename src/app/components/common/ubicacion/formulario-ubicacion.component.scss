@@ -1,0 +1,29 @@
+@import "var";
+
+.source {
+  margin-bottom: $spacing/2;
+  margin-left: -$spacing;
+  margin-right: -$spacing;
+}
+
+.result {
+
+  .description {
+    margin: 0 0 $spacing/3 0;
+  }
+}
+
+mat-divider {
+  margin-bottom: 1rem;
+}
+
+
+form{
+  width: 100%;
+ 
+}
+
+form mat-form-field{
+  width: 100%;
+  margin-right: 1rem;
+  }

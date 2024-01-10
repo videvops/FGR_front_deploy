@@ -1,0 +1,85 @@
+.center {
+   
+    padding: 23px 0;
+    }
+
+.abs  {
+    width: 50%;
+    // height: 200%;
+}
+
+.abs2  {
+  width: 125%;
+  // height: 200%;
+}
+
+.medium-textarea { 
+    height: 5em;
+   
+ }
+ 
+ .medium-textarea2 { 
+  height: 12.5em;
+}
+
+ .contenedor-campo {
+    margin-bottom: 1rem;
+}
+
+::ng-deep .mat-select-panel{
+    max-height: 80vh !important;
+}   
+mat-form-field {
+    width: 100%;
+  }
+  
+  .obligatorio {
+    font-size: 25px;
+    color: red;
+  }
+
+
+
+  table, th, td {
+    border: 0.5px solid gray;
+    border-collapse: collapse;
+  }
+  .close {
+    float: right;
+    top:0px;
+    right:0px;
+  }
+
+  h2{
+    font-weight: bold;
+  }
+
+  .card {
+   
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .fury-card-header{
+    padding: 0%;
+  }
+
+  h4{
+    font-weight: bold;
+    color: rgb(0, 106, 255);
+    font-size: 16px;
+  }
+
+  .h41{
+    font-weight: bold;
+    color: rgb(11, 11, 11);
+    font-size: 16px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+
+
+  

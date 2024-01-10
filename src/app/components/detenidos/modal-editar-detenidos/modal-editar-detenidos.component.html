@@ -1,0 +1,822 @@
+<button class = "close" mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <div *ngIf="toDisplay == true; else notToDisplay">
+  <!-- Contenido del tab de ingreso -->
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Datos del ingreso">
+
+        
+            <form (ngSubmit)="guardar(formDetenido.value)" [formGroup]="formDetenido"  >
+         
+                <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+
+                    <h4 class="h41">No.</h4> 
+                    <h4>{{this.modeloDetenido?.folioIngreso}}</h4> 
+                    <h4 class="h41">, Año:</h4> 
+                    <h4>{{this.modeloDetenido?.anioFolioIngreso}}</h4> 
+                    <h4 class="h41">, Entidad Federativa:</h4> 
+                    <h4>{{this.modeloDetenido?.entidadFederativa}}</h4> 
+                    <h4 class="h41">, Sede/Subsede:</h4> 
+                    <h4>{{this.modeloDetenido?.nombreSedeSubsede}}</h4> 
+                    <h4 class="h41">, Separo:</h4> 
+                    <h4>{{this.modeloDetenido?.nombreSeparo}}</h4> 
+                </div> 
+
+
+
+               
+                <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+
+
+                    <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+                    fxLayoutAlign.gt-sm="start stretch">
+            
+                 <fury-card [fxFlex.gt-sm]="col2"
+                            class="basic-forms route-animations-elements"
+                            [@fadeInUp]
+                            fxFlex="grow">
+                   <fury-card-header>
+                     <fury-card-header-heading><h2>Datos del oficio</h2></fury-card-header-heading>
+                    
+                   </fury-card-header>
+                   <fury-card-content fxLayout="column" >
+                    
+                     <div class="result" fxLayout="column" >
+                       
+                            <!--Fecha/hora Ocurrencia. -->
+                         
+                                <mat-form-field appearance="outline">
+                                   <mat-label><strong class="obligatorio">*</strong>Fecha/Hora ingreso</mat-label>
+                                   <input formControlName="fehaHoraIngreso" matInput type="datetime-local" placeholder="start date" (change)="onDateChange()"  onkeypress="return event.keyCode != 13;">
+                                 </mat-form-field>
+                               
+            
+            
+            
+                       
+                         <!-- Numero de oficio de retencion -->
+                      
+                            <mat-form-field  appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Número de oficio de retención </mat-label>
+                                <input formControlName="oficioRetencion"  matInput [errorStateMatcher]="matcher"   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                <mat-error *ngIf="formDetenido.get('oficioRetencion')?.hasError('oficioError')">
+                                El Oficio No Puede Contener Espacios, puntos y/o Guiones bajos
+                                </mat-error>
+                                <mat-error *ngIf="formDetenido.get('oficioRetencion')?.hasError('maxlength')">
+                                El Oficio No Puede Contener mas de 50 caracteres
+                                </mat-error>
+                                </mat-form-field>
+                 
+                     
+            
+            
+            
+                <!-- dependencia que relaizo la detencion -->
+                
+                    <mat-form-field appearance="outline">
+                        <mat-label><strong class="obligatorio">*</strong>Dependencia que realizo la detención</mat-label>
+                        <mat-select formControlName="dependenciaDetencionID">
+                            <mat-option *ngFor="let opcion of listaAutoridadCargoDetencion"
+                                [value]="opcion.catAutoridadCargoDetencionID">
+                                {{opcion.nombreAutoridadCargoDetencion}}
+                            </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                
+            
+            
+            
+                
+                     </div>
+                   </fury-card-content>
+                 </fury-card>
+            
+                 <fury-card [fxFlex.gt-sm]="col3"
+                 class="basic-forms route-animations-elements"
+                 [@fadeInUp]
+                 fxFlex="grow">
+            <fury-card-header>
+            <fury-card-header-heading><h2>Delitos</h2></fury-card-header-heading>
+            
+            </fury-card-header>
+            <fury-card-content >
+            
+            <div class="result" fxLayout="row">
+            
+            <!-- Tabla delitos -->
+                <ng-container *ngIf = "listaDelitos.length > 0 ;else noDataDelitos" contenido>
+                   
+            
+                    <table   mat-table [dataSource]="dataDelito" class="mat-elevation-z8" style="width: 100%;">
+            
+                        <ng-container  matColumnDef="clasificacion">
+                            <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Delito </th>
+                            <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
+                        </ng-container>
+            
+            
+                        <ng-container matColumnDef="eliminar">
+                            <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                            <td style="text-align: center;" mat-cell *matCellDef="let element">
+            
+                                <button mat-stroked-button color="warn" (click)="deleteItemDelito(element)">
+                                    <mat-icon>cancel</mat-icon> 
+                                </button>
+            
+                            </td>
+                        </ng-container>
+            
+                        <tr mat-header-row *matHeaderRowDef="visibleColumnsDelito"></tr>
+                        <tr mat-row *matRowDef="let row; columns: visibleColumnsDelito;"></tr>
+            
+                    </table>
+            
+                </ng-container>
+            
+                <ng-template  #noDataDelitos><strong class="obligatorio">*</strong>No hay delitos registrados</ng-template>
+            
+            
+            </div>
+            </fury-card-content>
+            </fury-card>
+               </div>
+
+
+
+               <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+               fxLayoutAlign.gt-sm="start stretch">
+            
+            <fury-card [fxFlex.gt-sm]="col2"
+                       class="basic-forms route-animations-elements"
+                       [@fadeInUp]
+                       fxFlex="grow">
+              <fury-card-header>
+                <fury-card-header-heading><h2>Datos del detenido</h2></fury-card-header-heading>
+               
+              </fury-card-header>
+              <fury-card-content fxLayout="column">
+               
+                <div class="result" fxLayout="column">
+                  
+                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px" fxLayout.lt-md="column" >
+
+                        <div fxLayout="column" fxFlex.gt-sm="50%" fxFlex.lt-md="50%"    >
+            
+                             <!-- nombre del detenido -->
+                      
+                            <mat-form-field  appearance="outline" >
+                            <mat-label><strong class="obligatorio">*</strong>Nombre del detenido </mat-label>
+                               <input formControlName="nombreDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                             </mat-form-field>
+                             
+                     
+                             <!-- apellido paterno -->
+               
+                            <mat-form-field  appearance="outline" >
+                            <mat-label><strong class="obligatorio">*</strong>Apellido paterno </mat-label>
+                                <input formControlName="apellidoPaternoDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+               
+               
+                            <!-- apellido materno -->
+                         
+                            <mat-form-field  appearance="outline" >
+                            <mat-label><strong class="obligatorio">*</strong>Apellido Materno </mat-label>
+                                <input formControlName="apellidoMaternoDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+            
+            
+                        </div>
+                     
+            
+                              <mat-form-field  appearance="outline" class="abs">
+                              <mat-label>Otros Nombres </mat-label>
+                              <mat-label><strong ></strong></mat-label>
+                                <textarea class="medium-textarea2"  formControlName="otrosNombres" matInput > </textarea>
+                              </mat-form-field>
+            
+                    </div>
+            
+                   
+                
+                                  <!-- nacionalidad -->
+                     
+                            <mat-form-field appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Nacionalidad</mat-label>
+                                <mat-select formControlName="nacionalidadID">
+                                    <mat-option *ngFor="let opcion of listaNacionalidad"
+                                        [value]="opcion.catNacionalidadID">
+                                        {{opcion.descripcionNacionalidad}}
+                                    </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+            
+            
+                                 <!-- observaciones detenido -->
+                      
+                            <mat-form-field  appearance="outline">
+                             <mat-label>Observaciones </mat-label>
+                                <mat-label><strong ></strong></mat-label>
+                                <textarea class="medium-textarea"  formControlName="observaciones" matInput > </textarea>
+                              </mat-form-field>
+                
+                              
+            
+            
+            
+                </div>
+              </fury-card-content>
+            </fury-card>
+            
+            <fury-card [fxFlex.gt-sm]="col3"
+            class="basic-forms route-animations-elements"
+            [@fadeInUp]
+            fxFlex="grow">
+            <fury-card-header>
+            <fury-card-header-heading><h2>Alias</h2></fury-card-header-heading>
+            
+            </fury-card-header>
+            <fury-card-content fxLayout="column">
+            
+            <div class="result" fxLayout="column">
+            
+            <!-- Tabla alias -->
+            <ng-container *ngIf = "listaAlias.length > 0 ;else noDataAlias" contenido>
+                
+            
+                <table   mat-table [dataSource]="dataAlias" class="mat-elevation-z8" style="width: 100%;">
+            
+                    <ng-container  matColumnDef="alias">
+                        <th  style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Alias </th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
+                    </ng-container>
+            
+            
+                    <ng-container matColumnDef="eliminar">
+                        <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+            
+                            <button mat-stroked-button color="warn" (click)="deleteItemAlias(element)">
+                                <mat-icon>cancel</mat-icon> 
+                            </button>
+            
+                        </td>
+                    </ng-container>
+            
+                    <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
+            
+                </table>
+            
+            </ng-container>
+            
+            <ng-template #noDataAlias>No hay alias registrados</ng-template>
+            
+            
+            
+            </div>
+            
+            
+            </fury-card-content>
+            
+            </fury-card>
+            </div>
+
+            <div  class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="12px">
+            
+                <button mat-stroked-button color="primary" type="submit" [disabled]="formDetenido.invalid || listaDelitos.length == 0 " > 
+                    <mat-icon>save</mat-icon> Guardar
+                </button>
+       
+              </div> 
+
+
+        
+                </fury-page-layout-content>
+          
+        </form>
+
+    </mat-tab>
+
+
+
+
+    <!-- Contendio del tab de egreso -->
+    <mat-tab label="Datos del egreso">
+
+        <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+                    
+            <h4 class="h41">No.</h4> 
+            <h4>{{this.modeloDetenido?.folioIngreso}}</h4> 
+            <h4 class="h41">, Año:</h4> 
+            <h4>{{this.modeloDetenido?.anioFolioIngreso}}</h4> 
+            <h4 class="h41">, Entidad Federativa:</h4> 
+            <h4>{{this.modeloDetenido?.entidadFederativa}}</h4> 
+            <h4 class="h41">, Sede/Subsede:</h4> 
+            <h4>{{this.modeloDetenido?.nombreSedeSubsede}}</h4> 
+            <h4 class="h41">, Separo:</h4> 
+            <h4>{{this.modeloDetenido?.nombreSeparo}}</h4> 
+        </div> 
+        <!-- Aqui va a ir el formulario de egreso-->
+
+        <form [formGroup]="formEgreso"  >
+        <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+            <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+                 fxLayoutAlign.gt-sm="start stretch">
+
+                 <fury-card [fxFlex.gt-sm]="col2"
+                            class="basic-forms route-animations-elements"
+                            [@fadeInUp]
+                            fxFlex="grow">
+
+
+                    <fury-card-header>
+                        <fury-card-header-heading><h2>Datos de egreso del detenido</h2></fury-card-header-heading>
+                    </fury-card-header>
+
+
+                    <fury-card-content fxLayout="column">
+                        <div class="result" fxLayout="column">
+
+                                 <!-- Numero de oficio de egreso -->
+                                <mat-form-field  appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Número de oficio de egreso </mat-label>
+                                <input formControlName="oficioEgreso"  matInput [errorStateMatcher]="matcher"  autocomplete="off" >
+                                <mat-error *ngIf="formEgreso.get('oficioEgreso')?.hasError('oficioError')">
+                                El Oficio No Puede Contener Espacios, puntos y/o Guiones bajos
+                                </mat-error>
+                                <mat-error *ngIf="formEgreso.get('oficioEgreso')?.hasError('maxlength')">
+                                El Oficio No Puede Contener mas de 50 caracteres
+                                </mat-error>
+                                </mat-form-field>
+
+                                  <!--Fecha/hora Ocurrencia. -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label><strong class="obligatorio">*</strong>Fecha/Hora egreso</mat-label>
+                                    <input formControlName="fechaHoraEgreso" matInput type="datetime-local" placeholder="start date" [min]="fechaMinima" (change)="onDateChangeEgreso()" >
+                                </mat-form-field>
+                                <app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+
+                                 <!-- Motivo del egreso -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label><strong class="obligatorio">*</strong>Motivo del egreso</mat-label>
+                                    <mat-select formControlName="motivoEgresoID">
+                                        <mat-option *ngFor="let opcion of listaMotivoEgreso"
+                                            [value]="opcion.catMotivoEgresoID">
+                                            {{opcion.motivoEgreso}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                 <!-- observaciones de egreso -->
+                                <mat-form-field  appearance="outline">
+                                <mat-label>Observaciones </mat-label>
+                                    <mat-label><strong ></strong></mat-label>
+                                    <textarea class="medium-textarea"  formControlName="observaciones" matInput > </textarea>
+                                </mat-form-field>
+
+
+                        </div>
+
+                    </fury-card-content>
+
+                 </fury-card>
+
+            </div>
+
+           
+
+            <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+          
+                <ng-container *ngIf="this.modeloDetenido.egreso == null;else second">
+                    <button mat-stroked-button color="primary" (click)="guardarEgreso(formEgreso.value)" [disabled]="formEgreso.invalid || this.errores.length > 0" > 
+                        <mat-icon>save</mat-icon> Guardar
+                    </button>
+                </ng-container>
+
+                <ng-template #second>
+                    <button mat-stroked-button color="primary" (click)="editarEgreso(formEgreso.value)" [disabled]="formEgreso.invalid || this.errores.length > 0" > 
+                        <mat-icon>save</mat-icon> Editar
+                    </button>
+                </ng-template>
+            
+            </div> 
+
+        </fury-page-layout-content>
+    </form>
+        
+
+    </mat-tab>
+    
+  </mat-tab-group>
+
+</div>
+
+<!-- NO EDITAR POR SER ROL CONSULTA --> 
+<!-- NO EDITAR POR SER ROL CONSULTA -->
+<!-- NO EDITAR POR SER ROL CONSULTA -->
+<!-- NO EDITAR POR SER ROL CONSULTA -->
+<!-- NO EDITAR POR SER ROL CONSULTA -->
+  <!-- Contenido del tab de ingreso inhabilitado para no editar -->
+  <ng-template  #notToDisplay> 
+
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Datos del ingreso">
+
+        
+            <form  [formGroup]="formDetenido"  >
+         
+                <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+                    
+                    <h4 class="h41">No.</h4> 
+                    <h4>{{this.modeloDetenido?.folioIngreso}}</h4> 
+                    <h4 class="h41">, Año:</h4> 
+                    <h4>{{this.modeloDetenido?.anioFolioIngreso}}</h4> 
+                    <h4 class="h41">, Entidad Federativa:</h4> 
+                    <h4>{{this.modeloDetenido?.entidadFederativa}}</h4> 
+                    <h4 class="h41">, Sede/Subsede:</h4> 
+                    <h4>{{this.modeloDetenido?.nombreSedeSubsede}}</h4> 
+                    <h4 class="h41">, Separo:</h4> 
+                    <h4>{{this.modeloDetenido?.nombreSeparo}}</h4> 
+                </div> 
+
+
+
+               
+                <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+
+
+                    <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+                    fxLayoutAlign.gt-sm="start stretch">
+            
+                 <fury-card [fxFlex.gt-sm]="col2"
+                            class="basic-forms route-animations-elements"
+                            [@fadeInUp]
+                            fxFlex="grow">
+                   <fury-card-header>
+                     <fury-card-header-heading><h2>Datos del oficio</h2></fury-card-header-heading>
+                    
+                   </fury-card-header>
+                   <fury-card-content fxLayout="column" >
+                    
+                     <div class="result" fxLayout="column" >
+                       
+                            <!--Fecha/hora ingreso. -->
+                         
+                            <mat-form-field appearance="outline" >
+                                <mat-label>Fecha/Hora ingreso</mat-label>
+                                <input formControlName="fehaHoraIngreso"   matInput type="datetime-local" placeholder="start date"   onkeypress="return event.keyCode != 13;" readonly >
+                              </mat-form-field>
+                            
+         
+         
+         
+                    
+                      <!-- Numero de oficio de retencion -->
+                   
+                         <mat-form-field  appearance="outline">
+                             <mat-label>Número de oficio de retención </mat-label>
+                             <input formControlName="oficioRetencion"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;" readonly>
+                             <mat-error *ngIf="formDetenido.get('oficioRetencion')?.hasError('oficioError')">
+                             El Oficio No Puede Contener Espacios, puntos y/o Guiones bajos
+                             </mat-error>
+                             <mat-error *ngIf="formDetenido.get('oficioRetencion')?.hasError('maxlength')">
+                             El Oficio No Puede Contener mas de 50 caracteres
+                             </mat-error>
+                             </mat-form-field>
+              
+                  
+         
+         
+         
+             <!-- dependencia que relaizo la detencion -->
+             
+                 <mat-form-field appearance="outline">
+                     <mat-label>Dependencia que realizo la detención</mat-label>
+                     <mat-select formControlName="dependenciaDetencionID" >
+                         <mat-option *ngFor="let opcion of listaAutoridadCargoDetencion"
+                             [value]="opcion.catAutoridadCargoDetencionID">
+                             {{opcion.nombreAutoridadCargoDetencion}}
+                         </mat-option>
+                     </mat-select>
+                   </mat-form-field>
+             
+         
+         
+                      
+         
+         
+             
+                  </div>
+                </fury-card-content>
+              </fury-card>
+         
+              <fury-card [fxFlex.gt-sm]="col3"
+              class="basic-forms route-animations-elements"
+              [@fadeInUp]
+              fxFlex="grow">
+         <fury-card-header>
+         <fury-card-header-heading><h2>Delitos</h2></fury-card-header-heading>
+         
+         </fury-card-header>
+         <fury-card-content >
+         
+         <div class="result" fxLayout="row">
+         
+         <!-- Tabla delitos -->
+             <ng-container *ngIf = "listaDelitos.length > 0 ;else noDataDelitos" contenido>
+                
+         
+                 <table   mat-table [dataSource]="dataDelito" class="mat-elevation-z8" style="width: 100%;">
+         
+                     <ng-container  matColumnDef="clasificacion">
+                         <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Delito </th>
+                         <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="eliminar">
+                        <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+        
+                            <button mat-stroked-button color="warn" >
+                                <mat-icon>cancel</mat-icon> 
+                            </button>
+        
+                        </td>
+                    </ng-container>
+         
+         
+
+         
+                     <tr mat-header-row *matHeaderRowDef="visibleColumnsDelito"></tr>
+                     <tr mat-row *matRowDef="let row; columns: visibleColumnsDelito;"></tr>
+         
+                 </table>
+         
+             </ng-container>
+         
+             <ng-template  #noDataDelitos>No hay delitos registrados</ng-template>
+         
+         
+         </div>
+         </fury-card-content>
+         </fury-card>
+            </div>
+
+
+
+            <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="start stretch">
+         
+         <fury-card [fxFlex.gt-sm]="col2"
+                    class="basic-forms route-animations-elements"
+                    [@fadeInUp]
+                    fxFlex="grow">
+           <fury-card-header>
+             <fury-card-header-heading><h2>Datos del detenido</h2></fury-card-header-heading>
+            
+           </fury-card-header>
+           <fury-card-content fxLayout="column">
+            
+             <div class="result" fxLayout="column">
+               
+                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px" fxLayout.lt-md="column" >
+
+                     <div fxLayout="column" fxFlex.gt-sm="50%" fxFlex.lt-md="50%"    >
+         
+                          <!-- nombre del detenido -->
+                   
+                         <mat-form-field  appearance="outline" >
+                         <mat-label>Nombre del detenido </mat-label>
+                            <input formControlName="nombreDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;" readonly>
+                          </mat-form-field>
+                          
+                  
+                          <!-- apellido paterno -->
+            
+                         <mat-form-field  appearance="outline" >
+                         <mat-label>Apellido paterno </mat-label>
+                             <input formControlName="apellidoPaternoDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;" readonly>
+                         </mat-form-field>
+            
+            
+                         <!-- apellido materno -->
+                      
+                         <mat-form-field  appearance="outline" >
+                         <mat-label>Apellido Materno </mat-label>
+                             <input formControlName="apellidoMaternoDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;" readonly> 
+                         </mat-form-field>
+         
+         
+                     </div>
+                  
+         
+                           <mat-form-field  appearance="outline" class="abs">
+                           <mat-label>Otros Nombres </mat-label>
+                           <mat-label><strong ></strong></mat-label>
+                             <textarea class="medium-textarea2"  formControlName="otrosNombres" matInput readonly > </textarea>
+                           </mat-form-field>
+         
+                 </div>
+         
+         
+                
+             
+                               <!-- nacionalidad -->
+                  
+                         <mat-form-field appearance="outline">
+                             <mat-label>Nacionalidad</mat-label>
+                             <mat-select formControlName="nacionalidadID" >
+                                 <mat-option *ngFor="let opcion of listaNacionalidad"
+                                     [value]="opcion.catNacionalidadID">
+                                     {{opcion.descripcionNacionalidad}}
+                                 </mat-option>
+                             </mat-select>
+                           </mat-form-field>
+         
+         
+                              <!-- observaciones detenido -->
+                   
+                         <mat-form-field  appearance="outline">
+                          <mat-label>Observaciones </mat-label>
+                             <mat-label><strong ></strong></mat-label>
+                             <textarea class="medium-textarea"  formControlName="observaciones" matInput readonly > </textarea>
+                           </mat-form-field>
+             
+                           
+         
+         
+         
+             </div>
+           </fury-card-content>
+         </fury-card>
+         
+         <fury-card [fxFlex.gt-sm]="col3"
+         class="basic-forms route-animations-elements"
+         [@fadeInUp]
+         fxFlex="grow">
+         <fury-card-header>
+         <fury-card-header-heading><h2>Alias</h2></fury-card-header-heading>
+         
+         </fury-card-header>
+         <fury-card-content fxLayout="column">
+         
+         <div class="result" fxLayout="column">
+         
+         <!-- Tabla alias -->
+         <ng-container *ngIf = "listaAlias.length > 0 ;else noDataAlias" contenido>
+             
+         
+             <table   mat-table [dataSource]="dataAlias" class="mat-elevation-z8" style="width: 100%;">
+         
+                 <ng-container  matColumnDef="alias">
+                     <th  style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Alias </th>
+                     <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
+                 </ng-container>
+
+                 
+                 <ng-container matColumnDef="eliminar">
+                    <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                    <td style="text-align: center;" mat-cell *matCellDef="let element">
+        
+                        <button mat-stroked-button color="warn" >
+                            <mat-icon>cancel</mat-icon> 
+                        </button>
+        
+                    </td>
+                </ng-container>
+
+         
+                 <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+                 <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
+         
+             </table>
+         
+         </ng-container>
+         
+         <ng-template #noDataAlias>No hay alias registrados</ng-template>
+            
+            
+            
+            </div>
+            
+            
+            </fury-card-content>
+            
+            </fury-card>
+            </div>
+
+                </fury-page-layout-content>
+          
+        </form>
+
+    </mat-tab>
+
+
+
+
+    <!-- Contendio del tab de egreso -->
+    <mat-tab label="Datos del egreso">
+
+        <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+                    
+            <h4 class="h41">No.</h4> 
+            <h4>{{this.modeloDetenido?.folioIngreso}}</h4> 
+            <h4 class="h41">, Año:</h4> 
+            <h4>{{this.modeloDetenido?.anioFolioIngreso}}</h4> 
+            <h4 class="h41">, Entidad Federativa:</h4> 
+            <h4>{{this.modeloDetenido?.entidadFederativa}}</h4> 
+            <h4 class="h41">, Sede/Subsede:</h4> 
+            <h4>{{this.modeloDetenido?.nombreSedeSubsede}}</h4> 
+            <h4 class="h41">, Separo:</h4> 
+            <h4>{{this.modeloDetenido?.nombreSeparo}}</h4> 
+        </div> 
+        <!-- Aqui va a ir el formulario de egreso-->
+
+        <form [formGroup]="formEgreso"  >
+        <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+            <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+                 fxLayoutAlign.gt-sm="start stretch">
+
+                 <fury-card [fxFlex.gt-sm]="col2"
+                            class="basic-forms route-animations-elements"
+                            [@fadeInUp]
+                            fxFlex="grow">
+
+
+                    <fury-card-header>
+                        <fury-card-header-heading><h2>Datos de egreso del detenido</h2></fury-card-header-heading>
+                    </fury-card-header>
+
+
+                    <fury-card-content fxLayout="column">
+                        <div class="result" fxLayout="column">
+
+                                 <!-- Numero de oficio de egreso -->
+                                <mat-form-field  appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Número de oficio de egreso </mat-label>
+                                <input formControlName="oficioEgreso"  matInput [errorStateMatcher]="matcher"  autocomplete="off" readonly>
+                                <mat-error *ngIf="formEgreso.get('oficioEgreso')?.hasError('oficioError')">
+                                El Oficio No Puede Contener Espacios, puntos y/o Guiones bajos
+                                </mat-error>
+                                <mat-error *ngIf="formEgreso.get('oficioEgreso')?.hasError('maxlength')">
+                                El Oficio No Puede Contener mas de 50 caracteres
+                                </mat-error>
+                                </mat-form-field>
+
+                                  <!--Fecha/hora egreso. -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label><strong class="obligatorio">*</strong>Fecha/Hora egreso</mat-label>
+                                    <input formControlName="fechaHoraEgreso" matInput type="datetime-local" readonly>
+                                </mat-form-field>
+                                <app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+
+                                 <!-- Motivo del egreso -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label><strong class="obligatorio">*</strong>Motivo del egreso</mat-label>
+                                    <mat-select formControlName="motivoEgresoID">
+                                        <mat-option *ngFor="let opcion of listaMotivoEgreso"
+                                            [value]="opcion.catMotivoEgresoID">
+                                            {{opcion.motivoEgreso}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                 <!-- observaciones de egreso -->
+                                <mat-form-field  appearance="outline">
+                                <mat-label>Observaciones </mat-label>
+                                    <mat-label><strong ></strong></mat-label>
+                                    <textarea class="medium-textarea"  formControlName="observaciones" matInput readonly > </textarea>
+                                </mat-form-field>
+
+
+                        </div>
+
+                    </fury-card-content>
+
+                 </fury-card>
+
+            </div>
+
+
+        </fury-page-layout-content>
+    </form>
+        
+
+    </mat-tab>
+    
+  </mat-tab-group>
+
+  </ng-template>
+
+
+
+
+
+

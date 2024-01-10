@@ -1,0 +1,96 @@
+.center {
+   
+    padding: 23px 0;
+    }
+  
+  .abs  {
+    width: 125%;
+    // height: 200%;
+  }
+  
+  .medium-textarea { 
+    height: 2em;
+  }
+  .medium-textarea2 { 
+    height: 12.5em;
+  }
+  
+  .contenedor-campo {
+    margin-bottom: 1rem;
+  }
+  
+  ::ng-deep .mat-select-panel{
+    max-height: 80vh !important;
+  }   
+  mat-form-field {
+    width: 100%;
+    padding: 2px 0;
+  }
+  
+  .obligatorio {
+    font-size: 25px;
+    color: red;
+  }
+  
+  
+  
+  table, th, td {
+    border: 0.5px solid gray;
+    border-collapse: collapse;
+  }
+  .close {
+    float: right;
+    top:-15px;
+    right:-15px;
+  }
+  
+  h2{
+    font-weight: bold;
+  }
+  
+  h4{
+    font-weight: bold;
+    color: rgb(0, 106, 255);
+    font-size: 16px;
+  }
+  
+  .h41{
+    font-weight: bold;
+    color: rgb(11, 11, 11);
+    font-size: 18px;
+  }
+  
+  .card {
+   
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .fury-card-header{
+    padding: 0%;
+  }
+
+  .fury-card-content{
+    padding: 0%;
+  }
+  
+  ::ng-deep .mat-tab-labels {
+    min-width: auto !important;
+    div {
+      border: 1px solid #fff;
+      color: rgb(29, 28, 28) !important;
+      font-size: 16px;
+  
+      &.mat-tab-label-active {
+        background-color: #b1b1b1;
+      
+      }
+     
+        .mat-tab-label-content {
+          border: none;
+          color: rgb(29, 28, 28) !important;
+          }
+      }
+   }
+  
+  

@@ -1,0 +1,65 @@
+<button class = "close" mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+</button>
+
+<!-- DESCOMENTAR SI SE NECESITAN OBSERVACIONES -->
+<!-- <form (ngSubmit)="onUpload(formUpload.value)" [formGroup]="formUpload"  > -->
+<fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+    <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column"
+    fxLayoutAlign.gt-sm="start stretch">
+
+    <fury-card [fxFlex.gt-sm]="col2"
+                class="basic-forms route-animations-elements"
+                [@fadeInUp]
+                fxFlex="grow">
+
+                <fury-card-header>
+                    <fury-card-header-heading><h2>Ficha</h2></fury-card-header-heading>
+                  </fury-card-header>
+
+                  <fury-card-content fxLayout="column" >
+                    <div class="result" >
+
+                        
+                    
+                        <mat-label class="h41">Archivo:  </mat-label>
+                        <input    (change)="onCarga($event,this.id)" #fileInput type="file" id="{{this.id + 'file'}}">
+                        
+                        <br>
+                        <br>
+                       
+                       <!-- DESCOMENTAR SI SE NECESITAN OBSERVACIONES -->
+                        <!-- <mat-form-field  appearance="outline">
+                            <mat-label>Observaciones </mat-label>
+                               <mat-label><strong ></strong></mat-label>
+                               <textarea class="medium-textarea"  formControlName="observaciones" matInput > </textarea>
+                        </mat-form-field> -->
+                      
+
+                    </div>
+                  </fury-card-content>
+
+                
+
+                
+
+    </fury-card>
+    <div class="actions" fxLayout="row" fxLayoutAlign="end"  fxLayoutGap="8px">
+          
+       <!-- DESCOMENTAR SI SE NECESITAN OBSERVACIONES -->
+        <!-- <button  mat-flat-button color="primary"  type="submit" [disabled]="formUpload.invalid && this.file == null " 
+        >Guardar</button> -->
+
+
+        <button type="button" mat-flat-button color="primary" 
+        (click)="onUpload()" [disabled]="this.file == undefined"
+        >Guardar</button>
+    
+      </div> 
+
+
+    </div>
+</fury-page-layout-content>
+<!-- DESCOMENTAR SI SE NECESITAN OBSERVACIONES -->
+<!-- </form> -->

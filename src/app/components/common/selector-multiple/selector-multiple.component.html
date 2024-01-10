@@ -1,0 +1,17 @@
+<div class="contenedor">
+
+    <ul>
+        <li style="background-color:rgb(225, 227, 235);border-radius: 3px; color:black;">Seleccione los delitos a vincular</li>
+        <li *ngFor="let item of NoSeleccionados; let index= index" (click)="seleccionar(item, index)">{{item.valor}}</li>
+    </ul>
+
+    <div class="div-botones">
+        <button type="button" (click)="seleccionarTodo()">>></button>
+        <button type="button" (click)="deseleccionarTodo()"><<</button>
+    </div>
+
+    <ul>
+        <li style="background-color:rgb(225, 227, 235); border-radius:3px;color: black;">Delitos Vinculados</li>
+        <li *ngFor="let item of Seleccionados; let index= index" (click)="deseleccionar(item, index)">{{item.valor}}</li>
+    </ul>
+</div>

@@ -1,0 +1,69 @@
+<fury-page-layout mode="card">
+  <fury-page-layout-header>
+    <!-- <fury-breadcrumbs [@fadeInRight] [crumbs]="['Forms']" current="Form Elements"></fury-breadcrumbs> -->
+  </fury-page-layout-header>
+
+  <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+    <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start stretch">
+
+      <!-- Actualiza contraseña -->
+      <fury-card [fxFlex.gt-sm]="col2" class="basic-forms route-animations-elements" [@fadeInUp] fxFlex="grow">
+        <fury-card-header>
+          <fury-card-header-heading>Contraseña</fury-card-header-heading>
+          <fury-card-header-subheading>Ingresa todos los datos para cambiar contraseña</fury-card-header-subheading>
+          <fury-card-header-actions>
+            <!-- <button class="icon" mat-icon-button matTooltip="Password" type="button"><mat-icon>password</mat-icon></button> -->
+            <mat-icon>password</mat-icon>
+          </fury-card-header-actions>
+        </fury-card-header>
+        <fury-card-content fxLayout="column">
+          <form [formGroup]="formPassword" (ngSubmit)="updatePassword()">
+            <app-mostrar-errores [tipoMensajes]="tipo" [errores]="errores"></app-mostrar-errores>
+            <div class="result" fxLayout="column">
+              <mat-form-field>
+                <mat-label>Contraseña actual</mat-label>
+                <input type="password" formControlName="currentPassowrd" matInput required>
+              </mat-form-field>
+              <mat-form-field fxFlex="auto">
+                <mat-label>Nueva contraseña</mat-label>
+                <input type="password" formControlName="newPassword" matInput required>
+              </mat-form-field>
+              <mat-form-field fxFlex="auto">
+                <mat-label>Repite la nueva contraseña</mat-label>
+                <input type="password" formControlName="confirmPassword" [errorStateMatcher]="matcher" matInput required>
+                <mat-error *ngIf="formPassword.hasError('notSame')">No coinciden las contraseñas</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+              <button [disabled]="formPassword.invalid" color="primary" mat-raised-button>Actualizar contraseña</button>
+            </div>
+          </form>
+        </fury-card-content>
+      </fury-card>
+
+      <!-- Actualiza Avatar -->
+      <fury-card [fxFlex.gt-sm]="col2" class="basic-forms route-animations-elements" [@fadeInUp] fxFlex="grow">
+        <fury-card-header>
+          <fury-card-header-heading>Avatar</fury-card-header-heading>
+          <fury-card-header-subheading>Seleccione una imagen de perfil</fury-card-header-subheading>
+          <fury-card-header-actions>
+            <!-- <button class="icon" mat-icon-button matTooltip="account_circle" type="button"><mat-icon>avatar</mat-icon></button> -->
+            <mat-icon>account_circle</mat-icon>
+          </fury-card-header-actions>
+        </fury-card-header>
+        <fury-card-content fxLayout="column">
+          <form [formGroup]="formAvatar" (ngSubmit)="changeAvatar()">
+            <div class="result" fxLayout="column">
+              <senap-user-avatar (onImageSelected)="imageSelected($event)"></senap-user-avatar>
+            </div>
+            <div class="actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+              <button [disabled]="formAvatar.invalid && updateAvatar" color="primary" mat-raised-button>Actualizar Avatar</button>
+            </div>
+          </form>
+        </fury-card-content>
+      </fury-card>
+
+    </div>
+  </fury-page-layout-content>
+</fury-page-layout>

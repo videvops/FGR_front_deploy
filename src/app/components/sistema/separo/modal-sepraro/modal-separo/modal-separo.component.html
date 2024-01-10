@@ -1,0 +1,73 @@
+<button class = "close" mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+<div mat-dialog-title><b>Asignar sedes/subsedes con separos</b></div>
+
+
+<div mat-dialog-content>
+    <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+        <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="column"
+            fxLayoutAlign.gt-sm="start stretch">
+            <fury-card [fxFlex.gt-sm]="col2" class="advanced-forms route-animations-elements" [@fadeInUp] fxFlex="grow">
+
+             
+
+                <fury-card-content fxLayout="column">
+                
+                    <div [fxLayoutGap]="gap" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start">
+                        <br />
+
+                        
+                          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <!-- Nodo hijo -->
+
+                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                                <button mat-icon-button disabled></button>
+                                <mat-checkbox class="checklist-leaf-node"
+                                    [checked]="checklistSelection.isSelected(node)" 
+                                    (change)="todoLeafItemSelectionToggle(node)">{{node.item.nombreSedeSubsede}}</mat-checkbox>
+                            </mat-tree-node>
+
+                            <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+                                <button mat-icon-button disabled></button>
+        
+                            </mat-tree-node>
+
+                            <!-- Nodo padre -->
+
+                            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                                    <mat-icon class="mat-icon-rtl-mirror">
+                                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                    </mat-icon>
+                                </button>
+                                <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                    [indeterminate]="descendantsPartiallySelected(node)" 
+                                    (change)="todoItemSelectionToggle(node)"><b>{{node.item.entidadFederativa}}</b></mat-checkbox>
+                           
+                            </mat-tree-node>
+                        </mat-tree>
+
+
+
+
+
+                          
+
+                    </div>
+                </fury-card-content>
+            </fury-card>
+        </div>
+    </fury-page-layout-content>
+</div> 
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+
+    <ng-container *ngIf = "this.modeloUbicaciones.length > 0 ;else noUbicaciones" >
+        <button mat-stroked-button color="primary" (click)="editarAsignacionSeparo()" ><mat-icon>save</mat-icon>Editar</button>
+    </ng-container>
+
+    <ng-template  #noUbicaciones>
+        <button mat-stroked-button color="primary" (click)="asignarSeparo()" ><mat-icon>edit</mat-icon>Asignar</button>
+    </ng-template>
+</mat-dialog-actions>

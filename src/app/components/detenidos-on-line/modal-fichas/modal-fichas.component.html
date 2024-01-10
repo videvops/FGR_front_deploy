@@ -1,0 +1,42 @@
+<button class = "close" mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <form  [formGroup]="formFichas"  >
+    <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+  
+      <fury-card-header-heading><h2>Seleccione una ficha</h2></fury-card-header-heading>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fichas</mat-label>
+    <mat-select formControlName="fichaDetenido" (selectionChange)="onChangeFicha($event.value)" >
+        <mat-option *ngFor="let opcion of listaFichas"
+            [value]="opcion.nombreUnico">
+            {{opcion.nombreArchivo}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+
+
+
+
+  <div class="actions" fxLayout="row" fxLayoutAlign="end"  fxLayoutGap="8px">
+          
+    <button mat-stroked-button color="primary" [disabled]="formFichas.invalid" (click)="verFicha()"> 
+        <mat-icon>picture_as_pdf</mat-icon> Abrir
+    </button>
+
+  </div> 
+
+
+
+
+
+
+
+    </fury-page-layout-content>
+  </form>

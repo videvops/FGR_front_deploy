@@ -1,0 +1,74 @@
+@import "var";
+
+:host {
+  top: 0;
+  z-index: $toolbar-z-index;
+}
+
+.toolbar {
+  padding-right: 0;
+  height: $toolbar-height;
+  padding-left: $spacing;
+  max-width: 100%;
+
+  @media (max-width:600px) {
+    .banner-senap-1 {
+      display: none;
+    }
+    .banner-senap-2 {
+      display: none;
+    }
+    .banner-senap-3 {
+      display: none;
+    }
+    .banner-senap-4 {
+      display: none;
+    }
+    .banner-senap-5 {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .banner-senap-1 {
+    max-width: 100%;
+    height: auto;
+  }
+  .banner-senap-2 {
+    max-width: 100%;
+    height: auto;
+  }
+  .banner-senap-3 {
+    max-width: 100%;
+    height: auto;
+  }
+  .banner-senap-4 {
+    max-width: 100%;
+    height: auto;
+  }
+  .banner-senap-5 {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .toolbar-button {
+    border-left-width: 1px;
+    border-left-style: solid;
+    display: flex;
+  }
+
+  .toolbar-logo {
+    cursor: pointer;
+    outline: none;
+    margin-bottom: -5px;
+    margin-left: $spacing;
+    margin-right: $spacing;
+
+    svg {
+      height: 35px;
+    }
+  }
+
+  @include media-xs {
+    padding-left: $spacing/3;
+  }
+}

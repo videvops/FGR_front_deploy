@@ -1,0 +1,12 @@
+button {
+    margin-bottom: 1rem;
+}
+
+.user-avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.user-avatar-img {
+  height: 280px;
+}

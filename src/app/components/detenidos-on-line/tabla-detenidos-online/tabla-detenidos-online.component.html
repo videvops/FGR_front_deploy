@@ -1,0 +1,185 @@
+
+
+<fury-page-layout mode="card">
+    <fury-page-layout-content [@fadeInUp]>
+        <br>
+
+        <detenciones-buscador-detenidos-on-line
+        (emisorFormularioOnLine)="cargaDetenidos($event)">
+        </detenciones-buscador-detenidos-on-line>
+
+        <br>
+      
+
+        <!-- <fury-list name="Detenidos" [columns]="columns" (filterChange)="onFilterChange($event)">  -->
+            <ng-container  contenido>
+
+                <table   mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+
+                    <ng-container matColumnDef="folioIngreso">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Folio Nacional</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.folioIngreso}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="folioEstatal">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Folio Estatal</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.folioEstatal}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="entidadFederativa">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Entidad Federativa</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.entidadFederativa}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fehaHoraIngreso">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Fecha Ingreso</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.fehaHoraIngreso}} </td>
+                    </ng-container>
+
+                     <ng-container matColumnDef="nombreDetenido">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Nombre del detenido</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> 
+                            <a class ='simulalink'  (click)="obtenerModeloDetenido(element.id)">
+                            {{element.nombreDetenido}} {{element.apellidoPaternoDetenido}} {{element.apellidoMaternoDetenido}}
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="nacionalidad">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Nacionalidad</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.nacionalidad}} </td>
+                    </ng-container> -->
+
+                    <ng-container matColumnDef="oficioRetencion">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> No.Oficio de reteneción</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.oficioRetencion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="dependenciaDetencion">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Dependencia que realizo la detención</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.dependenciaDetencion}} </td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="delitos">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Delitos</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.delitos}} </td>
+                    </ng-container>  -->
+
+                    <!-- <ng-container matColumnDef="oficioRetencion">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Oficio de reteneción</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.oficioRetencion}} </td>
+                    </ng-container>  -->
+
+                    
+                    <!-- <ng-container   matColumnDef="observaciones">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Observaciones</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+
+                            <button mat-stroked-button color="primary" (click)="editar(elemento)">
+                                <mat-icon>visibility</mat-icon> Ver
+                            </button>
+
+                        </td>
+                    </ng-container> -->
+                    <!-- <ng-container   matColumnDef="observaciones">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Observaciones</th>
+                            <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
+                    </ng-container> -->
+
+                    <!-- <ng-container matColumnDef="estatusRegistro">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Estatus</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.estatusRegistro}} </td>
+                    </ng-container>  -->
+<!-- 
+                    <ng-container   matColumnDef="editar">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Editar</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+
+                            <button mat-stroked-button color="primary" (click)="editar(elemento)">
+                                <mat-icon>create</mat-icon> EDITAR
+                            </button>
+
+                        </td>
+                    </ng-container> -->
+
+                    <!-- Este se comenta para la presentacion  -->
+
+                    <!-- <ng-container matColumnDef="asignar">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Asignar</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+
+                            <button mat-stroked-button color="primary" (click)="modalAsignacion(element.id)">
+                                <mat-icon>group_add</mat-icon> 
+                            </button>
+
+                        </td>
+                    </ng-container> -->
+
+                    <ng-container matColumnDef="estatusRegistro">
+                        <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Estatus gestión</th>
+                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.estatusRegistro}}  </td>
+                    </ng-container>
+
+                    
+<!--                  
+                    <ng-container matColumnDef="adjuntar">
+                        <th style="text-align: center;"  mat-header-cell *matHeaderCellDef> Adjuntar</th>
+                        <td  style="text-align: center;" mat-cell *matCellDef="let element" > 
+                        
+                               
+                            <input hidden  (change)="onCarga($event,element.id)" #fileInput type="file" id="{{element.id + 'file'}}">
+  
+                            <button type="button" mat-flat-button color="primary" 
+                            (click)="fileInput.click()" 
+                            >Adjuntar</button>
+                           
+
+                        </td>
+                     </ng-container> -->
+
+                                      
+                     <!-- Este se comenta para la presentacion -->
+                    <ng-container matColumnDef="adjuntar">
+                        <th style="text-align: center;"  mat-header-cell *matHeaderCellDef> Adjuntar</th>
+                        <td  style="text-align: center;" mat-cell *matCellDef="let element" > 
+                            <button type="button" mat-flat-button color="primary" (click)="modalAdjuntar(element.id)">Adjuntar</button>
+                        </td>
+                     </ng-container>
+
+                        <!-- Este solo es de prueba -->
+                    <ng-container matColumnDef="verFicha">
+                        <th style="text-align: center;"  mat-header-cell *matHeaderCellDef> Fichas</th>
+                        <td  style="text-align: center;" mat-cell *matCellDef="let element" > 
+                            <button type="button" mat-flat-button color="primary" (click)="modeloDetenidoFicha(element.id, element.fichas)" [disabled]="element.fichas == null">Fichas</button>
+                        </td>
+                     </ng-container>
+                       
+                      
+                        
+
+
+
+
+
+                    <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
+
+                </table>
+
+            </ng-container>
+        <!-- </fury-list> -->
+
+
+        <mat-paginator
+        #paginator
+        class="paginator"
+        showFirstLastButtons
+        [pageSizeOptions]="[5, 10, 20, 50]"
+        [length]="cantidadTotalRegistros"
+        [pageSize]="pageSize"
+        (page)="actualizarPaginacion($event)"></mat-paginator>
+
+
+    </fury-page-layout-content>
+
+</fury-page-layout>

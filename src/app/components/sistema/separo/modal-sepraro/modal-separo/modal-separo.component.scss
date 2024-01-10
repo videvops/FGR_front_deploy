@@ -1,0 +1,16 @@
+mat-tree {
+  width: 100%
+}
+  
+  .ul,
+  .li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+
+  .close {
+    float: right;
+    top:-15px;
+    right:-15px;
+  }

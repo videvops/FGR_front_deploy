@@ -1,0 +1,6 @@
+<ul *ngIf="errores.length > 0 && tipoMensajes">
+  <li class="red" *ngFor="let error of errores">{{ error }}</li>
+</ul>
+<ul *ngIf="errores.length > 0 && !tipoMensajes">
+  <li class="green" *ngFor="let error of errores">{{ error }}</li>
+</ul>

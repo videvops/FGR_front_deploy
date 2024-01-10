@@ -1,0 +1,52 @@
+<div mat-dialog-title>Rol</div>
+
+<app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+
+    <div class="">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+        <mat-form-field fxFlex>
+          <mat-label>Nombre</mat-label>
+          <input type="text" formControlName="name" matInput>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-label>Descripción</mat-label>
+          <input type="text" formControlName="descripcion" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex>
+        <mat-label>Street</mat-label>
+        <input type="text" formControlName="street" matInput>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex>
+        <mat-label>Zipcode</mat-label>
+        <input type="text" formControlName="zipcode" matInput>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>City</mat-label>
+        <input type="text" formControlName="city" matInput>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex>
+        <mat-label>Phone Number</mat-label>
+        <input type="text" formControlName="phoneNumber" matInput>
+      </mat-form-field>
+    </div> -->
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button *ngIf="isCreateMode()" mat-raised-button color="accent" [disabled]="!form.valid">Crear Rol</button>
+    <button *ngIf="isUpdateMode()" mat-raised-button color="accent" [disabled]="!form.valid">Actualizar Rol</button>
+    <button mat-raised-button color="warn" (click)="cancel($event)">Cancelar</button>
+  </mat-dialog-actions>
+</form>

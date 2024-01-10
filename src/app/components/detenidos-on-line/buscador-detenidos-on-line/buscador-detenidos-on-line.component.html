@@ -1,0 +1,282 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      
+      <h3>
+        <mat-icon>find_in_page</mat-icon>Filtros de búsqueda de detenidos
+      </h3>
+    </mat-panel-title>
+    <mat-panel-description>
+      
+    </mat-panel-description>
+  </mat-expansion-panel-header> 
+
+  <form (ngSubmit)="buscar(formFiltro.value)" [formGroup]="formFiltro">
+
+<fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+
+  <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+  fxLayoutAlign.gt-sm="start stretch">
+
+    <fury-card [fxFlex.gt-sm]="col2"
+    class="basic-forms route-animations-elements"
+    [@fadeInUp]
+    fxFlex="grow">
+
+    <fury-card-header>
+      <fury-card-header-heading><h3>Ingreso</h3></fury-card-header-heading>
+    </fury-card-header>
+
+      <fury-card-content fxLayout="row" >
+        <div class="result" fxLayout="row" >
+            <!--contenido aqui-->
+           
+              <mat-form-field appearance="outline">
+                  <mat-label>Rango de fecha ingreso</mat-label>
+                  <mat-date-range-input [rangePicker]="picker">
+                  <input
+                      matStartDate
+                      formControlName="fechaIngresoInicial"
+                      placeholder="Start date"
+                  />
+                  <input
+                      matEndDate
+                      formControlName="fechaIngresoFinal"
+                      placeholder="End date"
+                  />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <!-- <mat-datepicker #picker disabled="false"></mat-datepicker> -->
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            
+            
+                  <mat-form-field  appearance="outline" [style.width.%]=" '100'">
+                          <mat-label>Año</mat-label>
+                          <input
+                            formControlName="anio"
+                            type="number"
+                            min="0"
+                            matInput
+                          />
+                  </mat-form-field>
+
+                
+                    <mat-form-field  appearance="outline" [style.width.px]=327>
+                     <mat-label>Numero del detenido </mat-label>
+                        <input formControlName="numeroDetenido"   matInput   autocomplete="off">
+                      </mat-form-field>
+              
+              
+
+        </div>
+      </fury-card-content>
+
+    </fury-card>
+  </div>
+
+  <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+                    fxLayoutAlign.gt-sm="start stretch">
+
+    <fury-card [fxFlex.gt-sm]="col2"
+    class="basic-forms route-animations-elements"
+    [@fadeInUp]
+    fxFlex="grow">
+
+    <fury-card-header>
+      <fury-card-header-heading><h3>Detenido</h3></fury-card-header-heading>
+    </fury-card-header>
+
+      <fury-card-content fxLayout="column" >
+        <div class="result" fxLayout="row" >
+            <!--contenido aqui-->
+  
+            
+              <mat-form-field  appearance="outline"[style.width.px]=327>
+               <mat-label>Nombre del detenido </mat-label>
+                  <input formControlName="nombre"  matInput   autocomplete="off">
+                </mat-form-field>
+     
+
+      
+              <mat-form-field  appearance="outline"[style.width.px]=327>
+               <mat-label>Apellido paterno </mat-label>
+                  <input formControlName="aPaterno"  matInput   autocomplete="off">
+                </mat-form-field>
+     
+
+       
+              <mat-form-field  appearance="outline"[style.width.px]=327>
+               <mat-label>Apellido Materno </mat-label>
+                  <input formControlName="aMaterno"  matInput   autocomplete="off">
+                </mat-form-field>
+
+                
+            <mat-form-field appearance="outline">
+              <mat-label>Nacionalidad</mat-label>
+              <mat-select formControlName="nacionalidadID">
+                <mat-option [value]="null">-- Seleccione --</mat-option>
+                  <mat-option *ngFor="let opcion of listaNacionalidad"
+                      [value]="opcion.catNacionalidadID">
+                      {{opcion.descripcionNacionalidad}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field  appearance="outline"[style.width.px]=327>
+              <mat-label>Alias </mat-label>
+                 <input formControlName="alias"  matInput   autocomplete="off">
+               </mat-form-field>
+       
+
+        </div>
+
+        <div class="result" fxLayout="row" >
+
+                 
+       
+         
+
+        </div>
+      </fury-card-content>
+
+    </fury-card>
+
+  </div>
+
+  <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+  fxLayoutAlign.gt-sm="start stretch">
+
+    <fury-card [fxFlex.gt-sm]="col2"
+    class="basic-forms route-animations-elements"
+    [@fadeInUp]
+    fxFlex="grow">
+
+    <fury-card-header>
+      <fury-card-header-heading><h3>Detención</h3></fury-card-header-heading>
+    </fury-card-header>
+
+      <fury-card-content fxLayout="row" >
+        <div class="result" fxLayout="row" >
+            <!--contenido aqui-->
+           
+          
+              <mat-form-field  appearance="outline"[style.width.px]=327>
+               <mat-label>Número de oficio de retención </mat-label>
+                  <input formControlName="oficioRetencion"  matInput   autocomplete="off">
+                </mat-form-field>
+          
+
+             
+                  <mat-form-field appearance="outline"[style.width.px]=327>
+                      <mat-label>Dependencia que realizo la detención</mat-label>
+                      <mat-select formControlName="dependenciaDetencionID">
+                        <mat-option [value]="null">-- Seleccione --</mat-option>
+                          <mat-option *ngFor="let opcion of listaAutoridadCargoDetencion"
+                              [value]="opcion.catAutoridadCargoDetencionID">
+                              {{opcion.nombreAutoridadCargoDetencion}}
+                          </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+          
+
+             
+                  <mat-form-field appearance="outline"[style.width.px]=327>
+                      <mat-label>Delito</mat-label>
+                      <mat-select formControlName="catDelitoID">
+                        <mat-option [value]="null">-- Seleccione --</mat-option>
+                          <mat-option *ngFor="let opcion of listaDelito"
+                              [value]="opcion.catDelitoID"> 
+                              {{opcion.delito}}
+                          </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+             
+
+        </div>
+      </fury-card-content>
+
+    </fury-card>
+  </div>
+
+ <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
+                    fxLayoutAlign.gt-sm="start stretch">
+    
+    <fury-card [fxFlex.gt-sm]="col2"
+    class="basic-forms route-animations-elements"
+    [@fadeInUp]
+    fxFlex="grow">
+
+    <fury-card-header>
+      <fury-card-header-heading><h3>Egreso</h3></fury-card-header-heading>
+    </fury-card-header>
+
+      <fury-card-content fxLayout="column" >
+        <div class="result" fxLayout="row" >
+            <!--contenido aqui-->
+           
+            <mat-form-field appearance="outline">
+              <mat-label>Rango de fecha egreso</mat-label>
+              <mat-date-range-input [rangePicker]="picker1">
+              <input
+                  matStartDate
+                  formControlName="fechaEgresoInicial"
+                  placeholder="Start date"
+              />
+              <input
+                  matEndDate
+                  formControlName="fechaEgresoFinal"
+                  placeholder="End date"
+              />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+              ></mat-datepicker-toggle>
+              <!-- <mat-datepicker #picker disabled="false"></mat-datepicker> -->
+              <mat-date-range-picker #picker1></mat-date-range-picker>
+          </mat-form-field>
+         
+
+              <mat-form-field appearance="outline">
+                  <mat-label>Motivo egreso</mat-label>
+                  <mat-select formControlName="motivoEgresoID">
+                    <mat-option [value]="null">-- Seleccione --</mat-option>
+                      <mat-option *ngFor="let opcion of listaMotivoEgreso"
+                          [value]="opcion.catMotivoEgresoID"> 
+                          {{opcion.motivoEgreso}}
+                      </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+                <div class="result" fxLayout="row" >
+                  <mat-checkbox formControlName="ficha" class="example-margin" >Ficha</mat-checkbox>
+                </div>
+
+        
+      </fury-card-content>
+
+    </fury-card>
+  </div>
+
+ <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+  <button
+  mat-stroked-button
+  type="submit"
+  color="primary"
+  [disabled]="formFiltro.invalid">
+  <mat-icon>search</mat-icon>Buscar
+</button>
+</div>
+
+
+</fury-page-layout-content>
+  </form>
+
+</mat-expansion-panel>
+
+

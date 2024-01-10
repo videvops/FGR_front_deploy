@@ -1,0 +1,105 @@
+<div mat-dialog-title>Usuario</div>
+
+<app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+
+
+    <div class="">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+    
+        <mat-form-field  fxFlex > 
+          <mat-label>Nombre Personal</mat-label>
+          <input  #autoCompleteInput
+          type="text"
+                 placeholder="Nombre"
+              
+                 matInput
+                 [formControl]="userSIC"
+                 (input)="onSearchChange($event.target.value)"
+                 [matAutocomplete]="auto" oninput="this.value = this.value.toUpperCase()">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onShopSelectionChanged($event)">
+            <mat-option *ngFor="let option of filteredOptions"  [id]="option.personalID" [value]="option.nCompleto">
+              {{option.nCompleto}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+
+      </div>
+    </div>
+
+    <div class="">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+        <mat-form-field fxFlex>
+          <mat-label>Usuario</mat-label>
+          <input type="text" formControlName="userName" matInput>
+        </mat-form-field>
+<!-- 
+        <mat-form-field fxFlex>
+          <mat-label>Nombre Corto</mat-label>
+          <input type="text" formControlName="friendlyName" matInput>
+        </mat-form-field> -->
+      </div>
+    </div>
+
+    <div class="">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+
+        <mat-form-field fxFlex>
+          <mat-label>Correo electrónico</mat-label>
+          <input type="text" formControlName="email" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+        <mat-form-field fxFlex>
+          <mat-label>Status cuenta</mat-label>
+          <mat-select formControlName="statusAccountId">
+            <mat-option >---- Seleccione ---</mat-option>
+            <mat-option *ngFor="let status of catStatusAccount" [value]="status.statusAccountId">
+              {{ status.statusAccount }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-group form-check">
+          <mat-checkbox [checked]="true" formControlName="resetPassword" color="primary">Reset password to 123456</mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex>
+        <mat-label>Street</mat-label>
+        <input type="text" formControlName="street" matInput>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex>
+        <mat-label>Zipcode</mat-label>
+        <input type="text" formControlName="zipcode" matInput>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>City</mat-label>
+        <input type="text" formControlName="city" matInput>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex>
+        <mat-label>Phone Number</mat-label>
+        <input type="text" formControlName="phoneNumber" matInput>
+      </mat-form-field>
+    </div> -->
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button *ngIf="isCreateMode()" mat-raised-button color="primary" [disabled]=" form.invalid || this.userSelected == 0">Crear Usuario</button>
+    <button *ngIf="isUpdateMode()" mat-raised-button color="primary" [disabled]=" form.invalid || this.userSelected == 0">Actualizar Usuario</button>
+    <button mat-raised-button color="warn" (click)="cancel($event)">Cancelar</button>
+  </mat-dialog-actions>
+</form>

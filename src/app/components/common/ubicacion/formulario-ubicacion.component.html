@@ -1,0 +1,141 @@
+<form class="Ubicacion" [formGroup]="form">
+  <div class="result" fxLayout="column">
+    <div
+      [fxLayoutGap]="gap"
+      fxFlex="noshrink"
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="start stretch"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label
+          ><strong class="obligatorio">*</strong>Entidad Federativa
+        </mat-label>
+        <mat-select
+          formControlName="catEntidadFederativaID"
+          (selectionChange)="onChangeEntidadFederativa($event.value)"
+        >
+          <mat-option
+            *ngFor="let catentidad of catEntidadFederativa"
+            [value]="catentidad.catEntidadFederativaID"
+            >{{ catentidad.nombreEntidadFederativa }}</mat-option>         
+        </mat-select>
+        <mat-error *ngIf="form.invalid"
+        >El campo entidad es requerido</mat-error
+      >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label><strong class="obligatorio">*</strong>Municipio</mat-label>
+        <mat-select formControlName="catMunicipioDemarcacionTerritorialID">
+          <mat-option
+            *ngFor="let catmunicipio of catMunicipio"
+            [value]="catmunicipio.catMunicipioDemarcacionTerritorialID"
+            >{{
+              catmunicipio.nombreMunicipioDemarcacionTerritorial
+            }}</mat-option
+          >
+        </mat-select>
+        <mat-error *ngIf="form.invalid"
+          >El campo municipio es requerido</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Código postal</mat-label>
+        <input
+          type="number"
+          formControlName="codigoPostal"
+          [value]="0"
+          matInput
+        />
+      </mat-form-field>
+    </div>
+
+    <div
+      [fxLayoutGap]="gap"
+      fxFlex="noshrink"
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="start stretch"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de asentamiento</mat-label>
+        <mat-select formControlName="catColoniaID">
+          <mat-option
+            *ngFor="let catColonia of catColonia"
+            [value]="catColonia.catColoniaID"
+            >{{ catColonia.nombreColonia }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Colonia</mat-label>
+        <input formControlName="colonia" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Calle</mat-label>
+        <input formControlName="calleVialidad" matInput />
+      </mat-form-field>
+    </div>
+
+    <div
+      [fxLayoutGap]="gap"
+      fxFlex="noshrink"
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="start stretch"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de vialidad</mat-label>
+        <mat-select formControlName="catTipoVialidadID">
+          <mat-option
+            *ngFor="let tipoVialidad of catTipoVialidad"
+            [value]="tipoVialidad.catTipoVialidadID"
+            >{{ tipoVialidad.descripcionTipoVialidad }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Localidad</mat-label>
+        <input formControlName="localidad" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número Exterior</mat-label>
+        <input
+          type="number"
+          min="0"
+          oninput="validity.valid||(value='');"
+          formControlName="numeroExterior"
+          matInput
+        />
+      </mat-form-field>
+    </div>
+
+    <div
+      [fxLayoutGap]="gap"
+      fxFlex="noshrink"
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="start stretch"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Número interior</mat-label>
+        <input type="number" formControlName="numeroInterior" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Latitud</mat-label>
+        <input type="number" formControlName="latitud" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Longitud</mat-label>
+        <input type="number" formControlName="longitud" matInput />
+      </mat-form-field>
+    </div>
+  </div>
+</form>

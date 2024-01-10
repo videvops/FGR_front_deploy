@@ -1,0 +1,34 @@
+@import "var";
+
+.container {
+  height: 100%;
+  position: relative;
+}
+
+.content-container {
+  overflow: hidden;
+}
+
+.content {
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.scroll-disabled {
+    overflow: hidden;
+
+    .content-inner {
+      min-height: 0;
+    }
+  }
+}
+
+.content-inner {
+  //margin-top: 1rem;
+  margin-left: 2rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mat-drawer-container {
+  background-color: #fbf9f9;
+}
