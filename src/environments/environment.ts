@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   googleMapsApiKey: '',
-  apiURL: 'https://backendrefic.azurewebsites.net/'
+  apiURL: 'https://fgr-back-deploy.azurewebsites.net/'
 };
 
 export const environmentPrometheusApi = {
