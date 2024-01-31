@@ -49,7 +49,7 @@
                         <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Nombre del detenido</th>
                         <td style="text-align: center;" mat-cell *matCellDef="let element"> 
                             <a class ='simulalink'  (click)="obtenerModeloDetenido(element.id,element.estatusRegistro)">
-                            {{element.nombreDetenido}} {{element.apellidoPaternoDetenido}} {{element.apellidoMaternoDetenido}}
+                            {{element.nombreDetenido.nombre}} {{element.nombreDetenido.apellidoPaterno}} {{element.nombreDetenido.apellidoMaterno}}
                             </a>
                         </td>
                     </ng-container>

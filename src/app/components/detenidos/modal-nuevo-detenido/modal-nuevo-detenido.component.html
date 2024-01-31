@@ -1,508 +1,521 @@
 <div [@fadeInUp] class="card">
+    <button class = "close" mat-icon-button (click)= 'cancelar()' >
+        <mat-icon>close</mat-icon>
+    </button>
+    <!-- <mat-horizontal-stepper #stepper="matHorizontalStepper" [linear]="true" > -->
+    <!-- <mat-step [stepControl]="formEntidadSede">
+        <form  [formGroup]="formEntidadSede">
+        <ng-template matStepLabel><h2>Seleccione Entidad y Sede/Subsede</h2></ng-template>
 
-<button class = "close" mat-icon-button (click)= 'cancelar()' >
-    <mat-icon>close</mat-icon>
-  </button>
+        <div class="content" fxLayout="column" fxLayoutGap="8px">
 
-  <!-- <mat-horizontal-stepper #stepper="matHorizontalStepper" [linear]="true" > -->
+            <mat-form-field appearance="outline" fxFlex="auto">
+                <mat-label><strong class="obligatorio">*</strong>Entidad Federativa</mat-label>
+                <mat-select formControlName="entidadFederativa" (selectionChange)="onChangeEntidadFederativa($event.value)">
+                    <mat-option *ngFor="let opcion of listaEntidadFederativa"
+                        [value]="opcion.catEntidadFederativaID">
+                        {{opcion.entidadFederativa}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
+                <mat-form-field appearance="outline" fxFlex="auto">
+                <mat-label><strong class="obligatorio">*</strong>Sede/Subsede</mat-label>
+                <mat-select formControlName="nombreSedeSubsede" (selectionChange)="onChangeSede($event.value)">
+                    <mat-option *ngFor="let opcion of listaSede"
+                        [value]="opcion.sedeSubsedeID">
+                        {{opcion.nombreSedeSubsede}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-
-<!-- <mat-step [stepControl]="formEntidadSede">
-    <form  [formGroup]="formEntidadSede">
-    <ng-template matStepLabel><h2>Seleccione Entidad y Sede/Subsede</h2></ng-template>
-
-    <div class="content" fxLayout="column" fxLayoutGap="8px">
-
-        <mat-form-field appearance="outline" fxFlex="auto">
-            <mat-label><strong class="obligatorio">*</strong>Entidad Federativa</mat-label>
-            <mat-select formControlName="entidadFederativa" (selectionChange)="onChangeEntidadFederativa($event.value)">
-                <mat-option *ngFor="let opcion of listaEntidadFederativa"
-                    [value]="opcion.catEntidadFederativaID">
-                    {{opcion.entidadFederativa}}
-                </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-             <mat-form-field appearance="outline" fxFlex="auto">
-            <mat-label><strong class="obligatorio">*</strong>Sede/Subsede</mat-label>
-            <mat-select formControlName="nombreSedeSubsede" (selectionChange)="onChangeSede($event.value)">
-                <mat-option *ngFor="let opcion of listaSede"
-                    [value]="opcion.sedeSubsedeID">
-                    {{opcion.nombreSedeSubsede}}
-                </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" fxFlex="auto">
-            <mat-label><strong class="obligatorio">*</strong>Separo</mat-label>
-            <mat-select formControlName="nombreSeparo" >
-                <mat-option *ngFor="let opcion of listaSeparo"
-                    [value]="opcion.catSeparoID">
-                    {{opcion.nombreSeparo}}
-                </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-
-        
-    </div>
-
-
-
-
-    <div class="actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-        
-        <button color="primary" [disabled]="formEntidadSede.invalid" mat-raised-button matStepperNext>
-           Siguiente<mat-icon>chevron_right</mat-icon>
-        </button>
-      </div>
-</form>
-</mat-step> -->
-
-
-
-<!-- Parte 2 form detenido -->
-<!-- <mat-step [stepControl]="formDetenido"> -->
+            <mat-form-field appearance="outline" fxFlex="auto">
+                <mat-label><strong class="obligatorio">*</strong>Separo</mat-label>
+                <mat-select formControlName="nombreSeparo" >
+                    <mat-option *ngFor="let opcion of listaSeparo"
+                        [value]="opcion.catSeparoID">
+                        {{opcion.nombreSeparo}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+            <button color="primary" [disabled]="formEntidadSede.invalid" mat-raised-button matStepperNext>
+            Siguiente<mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+    </form>
+    </mat-step> -->
+    <!-- Parte 2 form detenido -->
+    <!-- <mat-step [stepControl]="formDetenido"> -->
     <br>
     <form (ngSubmit)="guardar(formDetenido.value)" [formGroup]="formDetenido"  >
-    <ng-template matStepLabel><h2>
-       Datos del detenido
-    </h2></ng-template>
+        <ng-template matStepLabel><h2> Datos del detenido </h2></ng-template>
+        <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+            <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
+                <h4 class="h41">Entidad Federativa:</h4> 
+                <h4>{{this.entidadNombre}}</h4>
+                <h4 class="h41">, Sede/Subsede:</h4>
+                <h4>{{this.sedeNombre}}</h4>
+                <h4 class="h41">, Separo:</h4> 
+                <h4>{{this.separoNombre}}</h4>
+            </div> 
+            <!-- <div *ngIf="this.listaEntidadFederativa.length > 1"> -->
+            <!--  <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start stretch">
+                <!-- <fury-card [fxFlex.gt-sm]="col2"
+                        class="basic-forms route-animations-elements"
+                        [@fadeInUp]
+                        fxFlex="grow">
+                        <fury-card-header>
+                            <fury-card-header-heading><h2>Separo</h2></fury-card-header-heading>
+                        </fury-card-header>
+                        <fury-card-content fxLayout="column" >
+                            <div class="result" fxLayout="column" >
+                                <mat-form-field class="hidden" appearance="outline"  fxFlex="auto">
+                                    <mat-label><strong class="obligatorio">*</strong>Entidad Federativa</mat-label>
+                                    <mat-select formControlName="entidadFederativa" [disabled] = "true">
+                                        <mat-option *ngFor="let opcion of listaEntidadFederativa"
+                                            [value]="opcion.catEntidadFederativaID">
+                                            {{opcion.entidadFederativa}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                        
+                                    <mat-form-field class="hidden" appearance="outline" fxFlex="auto">
+                                    <mat-label><strong class="obligatorio">*</strong>Sede/Subsede</mat-label>
+                                    <mat-select formControlName="nombreSedeSubsede"  [disabled] = "true">
+                                        <mat-option *ngFor="let opcion of listaSede"
+                                            [value]="opcion.sedeSubsedeID">
+                                            {{opcion.nombreSedeSubsede}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                        
+                                <mat-form-field appearance="outline" fxFlex="auto">
+                                    <mat-label><strong class="obligatorio">*</strong>Separo</mat-label>
+                                    <mat-select formControlName="nombreSeparo" [disabled] = "true">
+                                        <mat-option *ngFor="let opcion of listaSeparo"
+                                            [value]="opcion.catSeparoID">
+                                            {{opcion.nombreSeparo}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </fury-card-content>
+                </fury-card> 
+            </div> -->
+            <!-- </div> -->
+            <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start stretch">
+                <fury-card [fxFlex.gt-sm]="col2" class="basic-forms route-animations-elements" [@fadeInUp] fxFlex="grow">
+                    <fury-card-header><fury-card-header-heading><h2>Datos del oficio</h2></fury-card-header-heading></fury-card-header>
+                    <fury-card-content fxLayout="column" >
+                        <div class="result" fxLayout="column" fxLayoutGap="16px">
+                            <!--Fecha/hora Ocurrencia. -->
+                            <mat-form-field appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Fecha/Hora de oficio</mat-label>
+                                <input formControlName="fechaHoraIngreso" matInput type="datetime-local" placeholder="start date" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <!-- Numero de oficio de retencion -->
+                            <mat-form-field  appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Número de oficio de retención </mat-label>
+                                <input formControlName="numeroOficio"  matInput [errorStateMatcher]="matcher"    autocomplete="off" onkeypress="return event.keyCode != 13;"  oninput="this.value = this.value.toUpperCase()">
+                                <mat-error *ngIf="formDetenido.get('numeroOficio')?.hasError('oficioError')">
+                                    El Oficio No Puede Contener Espacios, puntos y/o Guiones bajos
+                                </mat-error>
+                                <mat-error *ngIf="formDetenido.get('numeroOficio')?.hasError('maxlength')">
+                                    El Oficio No Puede Contener mas de 50 caracteres
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                            <!-- dependencia que relaizo la detencion -->
 
-  
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="16px">
+                            <mat-form-field fxFlex.gt-sm="60%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Dependencia que realizo la detención</mat-label>
+                                <mat-select  formControlName="dependenciaDetencion" (selectionChange)="otraAutoridad($event.value)">
+                                    <mat-option *ngFor="let opcion of listaAutoridadCargoDetencion"
+                                        [value]="opcion.catAutoridadCargoDetencionID">
+                                        {{opcion.nombreAutoridadCargoDetencion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>                        
+                            <div fxFlex.gt-md="30%" fxFlex.gt-sm="100%" fxFlex.gt-xs="100%">
+                                <mat-checkbox formControlName="noProporcionada" (click)="showHideDropdown(formDetenido.value.noProporcionada)"></mat-checkbox>
+                                Informacion no proporcionada por la autoridad ministerial
+                            </div>
+                        </div>
 
-    <fury-page-layout-content [fxLayoutGap]="gap" fxLayout="column">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                            <div *ngIf="otraAutoridadSelect" fxFlex="100%">
+                                <mat-form-field  appearance="outline" >
+                                    <mat-label><strong class="obligatorio">*</strong>Otra autoridad</mat-label>
+                                    <input formControlName="otraAutoridadTextBox"  matInput autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                            </div>  
+                        </div>  
+                        <!-- delito -->
+                        <h2>Delitos</h2>
+                        <div fxLayout="column">
+                            <!-- <mat-form-field appearance="outline" >
+                                <mat-label>Delito</mat-label>
+                                <mat-select formControlName="delito">
+                                    <mat-option *ngFor="let opcion of listaDelito"
+                                        [value]="opcion"> 
+                                        {{opcion.delito}}
+                                    </mat-option>
+                                </mat-select>                    
+                            </mat-form-field> -->
+                            <div fxLayout="row" >
+                                <mat-form-field appearance="outline" style="margin-right: 10px;" >
+                                    <mat-label>Delito</mat-label>
+                                    <mat-select formControlName="delito" (selectionChange)="onChangeClasificaDelito($event.value)">
+                                        <mat-option *ngFor="let opcion of listaDelitoPFM"
+                                            [value]="opcion.catDelitoID"  [matTooltip]="opcion.delito"> 
+                                            {{opcion.delito}}
+                                        </mat-option>
+                                    </mat-select>                    
+                                </mat-form-field>
+                                <button class="create" (click)="GuardarListaDelito(formDetenido.value)" type="button" mat-mini-fab color="primary">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
 
-        <div class="actions" fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="8px">
-        
-            <h4 class="h41">Entidad Federativa:</h4> 
-    
-            <h4>{{this.entidadNombre}}</h4>
-    
-            <h4 class="h41">, Sede/Subsede:</h4>
-    
-            <h4>{{this.sedeNombre}}</h4>
-                
-            <h4 class="h41">, Separo:</h4> 
-    
-            <h4>{{this.separoNombre}}</h4>
-    
-                
-            
-        </div> 
-
-        <!-- <div *ngIf="this.listaEntidadFederativa.length > 1"> -->
-       
-        <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
-        fxLayoutAlign.gt-sm="start stretch">
-
-     
-
-        <!-- <fury-card [fxFlex.gt-sm]="col2"
-                class="basic-forms route-animations-elements"
-                [@fadeInUp]
-                fxFlex="grow">
-
-            
-              
-
-                <fury-card-header>
-                    <fury-card-header-heading><h2>Separo</h2></fury-card-header-heading>
-                  </fury-card-header>
-
-                 
-
-
-                  <fury-card-content fxLayout="column" >
-                    <div class="result" fxLayout="column" >
-                        <mat-form-field class="hidden" appearance="outline"  fxFlex="auto">
-                            <mat-label><strong class="obligatorio">*</strong>Entidad Federativa</mat-label>
-                            <mat-select formControlName="entidadFederativa" [disabled] = "true">
-                                <mat-option *ngFor="let opcion of listaEntidadFederativa"
-                                    [value]="opcion.catEntidadFederativaID">
-                                    {{opcion.entidadFederativa}}
-                                </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                
-                             <mat-form-field class="hidden" appearance="outline" fxFlex="auto">
-                            <mat-label><strong class="obligatorio">*</strong>Sede/Subsede</mat-label>
-                            <mat-select formControlName="nombreSedeSubsede"  [disabled] = "true">
-                                <mat-option *ngFor="let opcion of listaSede"
-                                    [value]="opcion.sedeSubsedeID">
-                                    {{opcion.nombreSedeSubsede}}
-                                </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                
-                          <mat-form-field appearance="outline" fxFlex="auto">
-                            <mat-label><strong class="obligatorio">*</strong>Separo</mat-label>
-                            <mat-select formControlName="nombreSeparo" [disabled] = "true">
-                                <mat-option *ngFor="let opcion of listaSeparo"
-                                    [value]="opcion.catSeparoID">
-                                    {{opcion.nombreSeparo}}
-                                </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-
-
-
-                    </div>
-
-                  </fury-card-content>
-
-
-        </fury-card> -->
-
-        </div>
-    <!-- </div> -->
-
-
-
-        <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
-        fxLayoutAlign.gt-sm="start stretch">
-
-     <fury-card [fxFlex.gt-sm]="col2"
-                class="basic-forms route-animations-elements"
-                [@fadeInUp]
-                fxFlex="grow">
-       <fury-card-header>
-         <fury-card-header-heading><h2>Datos del oficio</h2></fury-card-header-heading>
-        
-       </fury-card-header>
-       <fury-card-content fxLayout="column" >
-        
-         <div class="result" fxLayout="column" >
-           
-                <!--Fecha/hora Ocurrencia. -->
-             
-                    <mat-form-field appearance="outline">
-                       <mat-label><strong class="obligatorio">*</strong>Fecha/Hora de oficio</mat-label>
-                       <input formControlName="fechaHoraIngreso" matInput type="datetime-local" placeholder="start date" onkeypress="return event.keyCode != 13;">
-                     </mat-form-field>
-                   
-
-
-
-           
-             <!-- Numero de oficio de retencion -->
-          
-                <mat-form-field  appearance="outline">
-                    <mat-label><strong class="obligatorio">*</strong>Número de oficio de retención </mat-label>
-                    <input formControlName="numeroOficio"  matInput [errorStateMatcher]="matcher"    autocomplete="off" onkeypress="return event.keyCode != 13;"  oninput="this.value = this.value.toUpperCase()">
-                    <mat-error *ngIf="formDetenido.get('numeroOficio')?.hasError('oficioError')">
-                    El Oficio No Puede Contener Espacios, puntos y/o Guiones bajos
-                    </mat-error>
-                    <mat-error *ngIf="formDetenido.get('numeroOficio')?.hasError('maxlength')">
-                    El Oficio No Puede Contener mas de 50 caracteres
-                    </mat-error>
-                    </mat-form-field>
-     
-         
-
-
-
-    <!-- dependencia que relaizo la detencion -->
-    
-        <mat-form-field appearance="outline">
-            <mat-label><strong class="obligatorio">*</strong>Dependencia que realizo la detención</mat-label>
-            <mat-select formControlName="dependenciaDetencion">
-                <mat-option *ngFor="let opcion of listaAutoridadCargoDetencion"
-                    [value]="opcion.catAutoridadCargoDetencionID">
-                    {{opcion.nombreAutoridadCargoDetencion}}
-                </mat-option>
-            </mat-select>
-          </mat-form-field>
-    
-
-
-               <!-- delito -->
-               <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
-
-                <!-- <mat-form-field appearance="outline" >
-                    <mat-label>Delito</mat-label>
-                    <mat-select formControlName="delito">
-                        <mat-option *ngFor="let opcion of listaDelito"
-                            [value]="opcion"> 
-                            {{opcion.delito}}
-                        </mat-option>
-                    </mat-select>                    
-                </mat-form-field> -->
-                <mat-form-field appearance="outline" >
-                    <mat-label>Delito</mat-label>
-                    <mat-select formControlName="delito" (selectionChange)="onChangeClasificaDelito($event.value)">
-                        <mat-option *ngFor="let opcion of listaDelitoPFM"
-                            [value]="opcion.catDelitoID"> 
-                            {{opcion.delito}}
-                        </mat-option>
-                    </mat-select>                    
-                </mat-form-field>
-
-
-                <mat-form-field appearance="outline" >
-                    <mat-label>Modalidad Delito</mat-label>
-                    <mat-select formControlName="clasificacion">
-                        <mat-option *ngFor="let opcion of listaClasificacionDelitoPFM"
-                            [value]="opcion.catClasificaDelitoID"> 
-                            {{opcion.clasificacion}}
-                        </mat-option>
-                    </mat-select>                    
-                </mat-form-field>
-
-              
-                <button 
-                class="create" (click)="GuardarListaDelito(formDetenido.value)" type="button"
-                mat-mini-fab color="primary">
-                <mat-icon>add</mat-icon>
-                </button>
-               
-               </div>
-
-
-    
-         </div>
-       </fury-card-content>
-     </fury-card>
-
-     <fury-card [fxFlex.gt-sm]="col3"
-     class="basic-forms route-animations-elements"
-     [@fadeInUp]
-     fxFlex="grow">
-<fury-card-header>
-<fury-card-header-heading><h2>Delitos</h2></fury-card-header-heading>
-
-</fury-card-header>
-<fury-card-content >
-
-<div class="result" fxLayout="row">
-
-<!-- Tabla delitos -->
-    <ng-container *ngIf = "listaDelitos.length > 0 ;else noDataDelitos" contenido>
-+
-
-        <table   mat-table [dataSource]="dataDelito" class="mat-elevation-z8" style="width: 100%;">
-
-            <ng-container  matColumnDef="clasificacion">
-                <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Delito </th>
-                <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="eliminar">
-                <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
-                <td style="text-align: center;" mat-cell *matCellDef="let element">
-
-                    <button mat-stroked-button color="warn" (click)="deleteItemDelito(element)">
-                        <mat-icon>cancel</mat-icon> 
-                    </button>
-
-                </td>
-            </ng-container>
-
-        
-            <tr mat-header-row *matHeaderRowDef="visibleColumnsDelito"></tr>
-            <tr mat-row *matRowDef="let row; columns: visibleColumnsDelito;"></tr>
-
-        </table>
-
-    </ng-container>
-
-  
-    <ng-template  #noDataDelitos><strong class="obligatorio">*</strong>No hay delitos registrados</ng-template>
-    
-
-</div>
-</fury-card-content>
-</fury-card>
-   </div>
-
-
-
-
-   <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="column" fxLayout.gt-sm="row"
-   fxLayoutAlign.gt-sm="start stretch">
-
-<fury-card [fxFlex.gt-sm]="col2"
-           class="basic-forms route-animations-elements"
-           [@fadeInUp]
-           fxFlex="grow">
-  <fury-card-header>
-    <fury-card-header-heading><h2>Datos del detenido</h2></fury-card-header-heading>
-   
-  </fury-card-header>
-  <fury-card-content fxLayout="column">
-   
-    <div class="result" fxLayout="column">
-      
-        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px" fxLayout.lt-md="column" >
-
-            <div fxLayout="column" fxFlex.gt-sm="50%" fxFlex.lt-md="50%"    >
-
-                 <!-- nombre del detenido -->
-          
-                <mat-form-field  appearance="outline" >
-                <mat-label><strong class="obligatorio">*</strong>Nombre del detenido </mat-label>
-                   <input formControlName="nombreDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
-                 </mat-form-field>
-                 
-         
-                 <!-- apellido paterno -->
-   
-                <mat-form-field  appearance="outline" >
-                <mat-label><strong class="obligatorio">*</strong>Apellido paterno </mat-label>
-                    <input formControlName="apellidoPaterno"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
-                </mat-form-field>
-   
-   
-                <!-- apellido materno -->
-             
-                <mat-form-field  appearance="outline" >
-                <mat-label><strong class="obligatorio">*</strong>Apellido Materno </mat-label>
-                    <input formControlName="apellidoMaterno"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
-                </mat-form-field>
-
+                            <mat-form-field appearance="outline" >
+                                <mat-label>Modalidad Delito</mat-label>
+                                <mat-select formControlName="clasificacion">
+                                    <mat-option *ngFor="let opcion of listaClasificacionDelitoPFM"
+                                        [value]="opcion.catClasificaDelitoID" [matTooltip]="opcion.clasificacion"> 
+                                        {{opcion.clasificacion}}
+                                    </mat-option>
+                                </mat-select>                    
+                            </mat-form-field>
+                        </div>
+                        <div class="result" fxLayout="row">
+                            <!-- Tabla delitos -->
+                            <ng-container *ngIf = "listaDelitos.length > 0 ;else noDataDelitos" contenido>
+                                <table  mat-table [dataSource]="dataDelito" class="mat-elevation-z8" style="width: 100%;">
+                                    <ng-container  matColumnDef="clasificacion">
+                                        <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Delito </th>
+                                        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="eliminar">
+                                        <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                                        <td style="text-align: center;" mat-cell *matCellDef="let element">
+                                            <button mat-stroked-button color="warn" (click)="deleteItemDelito(element)">
+                                                <mat-icon>cancel</mat-icon> 
+                                            </button>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="visibleColumnsDelito"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: visibleColumnsDelito;"></tr>
+                                </table>
+                            </ng-container>
+                            <ng-template  #noDataDelitos><strong class="obligatorio">*</strong>No hay delitos registrados</ng-template>
+                        </div>
+                    </fury-card-content>
+                </fury-card>
 
             </div>
-         
 
-                  <mat-form-field  appearance="outline" class="abs">
-                  <mat-label>Otros Nombres </mat-label>
-                  <mat-label><strong ></strong></mat-label>
-                    <textarea class="medium-textarea2"  formControlName="otrosNombres" matInput > </textarea>
-                  </mat-form-field>
+            <div [fxLayoutGap]="gap" fxFlex="noshrink" fxLayout="row" fxLayoutAlign.gt-sm="start stretch">
+                <!-- Datos del detenido -->
+                <fury-card [fxFlex.gt-sm]="col2" class="basic-forms route-animations-elements" [@fadeInUp] fxFlex="grow">
+                    <fury-card-header> <fury-card-header-heading><h2>Datos del detenido</h2></fury-card-header-heading> </fury-card-header>
+                    <fury-card-content fxLayout="column">
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="15px" >
+                            <!-- nombre del detenido -->
+                            <mat-form-field  fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label><strong class="obligatorio">*</strong>Nombre del detenido </mat-label>
+                                <input formControlName="nombreDetenido"  matInput (change)="validateNombre()"  autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <!-- apellido paterno -->
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label><strong class="obligatorio">*</strong>Apellido paterno </mat-label>
+                                <input formControlName="apellidoPaternoDetenido"  matInput  (change)="validateNombre()"   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <!-- apellido materno -->
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label><strong class="obligatorio">*</strong>Apellido Materno </mat-label>
+                                <input formControlName="apellidoMaternoDetenido"  matInput  (change)="validateNombre()"   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <!-- Relevante   -->
+                            <div fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" >
+                                <mat-checkbox formControlName="isRelevante"></mat-checkbox>
+                                ¿Es una detencion relevante?
+                            </div>
+                        </div>
 
-        </div>
+                        <div *ngIf="!isCheckboxDisabled" fxLayout="row" fxLayoutAlign="start center">
+                            <div style="margin-right: 10px;">
+                                <h3>¿El detenido tiene otros nombres?</h3>
+                            </div>
+                            <div>
+                                <mat-checkbox formControlName="otrosNombresCheckBoxForm" (click)="showHideOtrosNombres(formDetenido.value)"></mat-checkbox>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="otrosNombresCheckBox && !isCheckboxDisabled" fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px">
+                            <div fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" flexLayout="column">
+                                <!-- nombre del detenido -->
+                                <label style="color: red; font-size: 10px; margin-top: 0px;" *ngIf="faltaNombre">El nombre del detenido es obligatorio</label>
+                                <mat-form-field style="margin-bottom: 0px; padding-bottom: 0px;"  appearance="outline" [color]="faltaNombre ? 'warn' : 'primary'">
+                                    <mat-label><strong class="obligatorio" >*</strong>Nombre del detenido </mat-label>
+                                    <input formControlName="otroNombreDetenido" matInput autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                                <!-- apellido paterno -->
+                                <label style="color: red; font-size: 10px; margin-top: 0px;" *ngIf="faltaApellidoPaterno">El apellido paterno del detenido es obligatorio</label>
+                                <mat-form-field  appearance="outline" [color]="faltaApellidoPaterno ? 'warn' : 'primary'" >
+                                    <mat-label><strong class="obligatorio">*</strong>Apellido paterno </mat-label>
+                                    <input formControlName="otroApellidoPaternoDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                                <!-- apellido materno -->
+                                <label style="color: red; font-size: 10px; margin-top: 0px;" *ngIf="faltaApellidoMaterno">El apellido materno del detenido es obligatorio</label>
+                                <mat-form-field  appearance="outline" [color]="faltaApellidoMaterno ? 'warn' : 'primary'" >
+                                    <mat-label><strong class="obligatorio">*</strong>Apellido Materno </mat-label>
+                                    <input formControlName="otroApellidoMaternoDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                                <div fxLayoutAlign="end center" >
+                                    <button class="create" (click)="GuardarListaOtrosNombres(formDetenido.value)" type="button" mat-mini-fab color="primary" style="margin-left: 10px;margin-top: 7px;" >
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div fxFlex.gt-sm="70%" fxFlex.gt-xs="100%" fxFlex="100%" style="overflow: hidden;"> 
+                                <ng-container *ngIf = "listaOtrosNombres.length > 0 ;else noDataNombres" contenido>
+                                    <table mat-table [dataSource]="dataOtrosNombres" class="mat-elevation-z8" style="width: 100%; max-width: 100%; table-layout: fixed;">
+                                        <ng-container  matColumnDef="nombre">
+                                            <th  style="text-align: center;font-size: 16px; overflow-wrap: break-word;" mat-header-cell *matHeaderCellDef> Nombre </th>
+                                            <td style="text-align: center;  overflow-wrap: break-word;" mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                                        </ng-container> 
+                                        <ng-container  matColumnDef="apellidoPaternoOtros">
+                                            <th  style="text-align: center;font-size: 16px ;overflow-wrap: break-word;" mat-header-cell *matHeaderCellDef> Apellido Paterno </th>
+                                            <td style="text-align: center;overflow-wrap: break-word;" mat-cell *matCellDef="let element"> {{element.apellidoPaterno}} </td>
+                                        </ng-container>
+                                        <ng-container  matColumnDef="apellidoMaternoOtros">
+                                            <th  style="text-align: center;font-size: 16px;overflow-wrap: break-word;" mat-header-cell *matHeaderCellDef> Apellido Materno </th>
+                                            <td style="text-align: center;overflow-wrap: break-word;" mat-cell *matCellDef="let element"> {{element.apellidoMaterno}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="eliminar">
+                                            <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                                            <td style="text-align: center;" mat-cell *matCellDef="let element">
+                                                <button mat-stroked-button color="warn" (click)="deleteItemOtrosNombres(element)">
+                                                    <mat-icon>cancel</mat-icon> 
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="visibleColumnsOtrosNombres"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: visibleColumnsOtrosNombres;"></tr>
+                                    </table>
+                                </ng-container>
+                                <ng-template #noDataNombres>No hay otros nombres registrados</ng-template>
+                            </div>
+                        </div>
 
-                      <!-- alias -->
-                      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
+                        <!-- alias -->
+                        <h2>Alias</h2>
+                        <div fxLayout="row" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px" fxLayout.lt-md="column" >
+                            <div fxFlex.gt-sm="100%" fxFlex.lt-md="40%" fxLayout= "row"> 
+                                <mat-form-field appearance="outline">
+                                <mat-label>Alias </mat-label>
+                                    <input formControlName="alias" matInput  autocomplete="off" onkeypress="return event.keyCode != 13;"> 
+                                </mat-form-field>
+                                <button class="create" (click)="GuardarListaAlias(formDetenido.value)" type="button" mat-mini-fab color="primary" style="margin-left: 10px;margin-top: 7px;" >
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                            <div class="result" fxFlex.gt-sm="100%" fxFlex.lt-md="60%" style="overflow: hidden;">
+                                <!-- Tabla alias -->
+                                <ng-container *ngIf = "listaAlias.length > 0 ;else noDataAlias" contenido>
+                                    <table mat-table [dataSource]="dataAlias" class="mat-elevation-z8" style="width: 100%; max-width: 100%; table-layout: fixed;">
+                                        <ng-container  matColumnDef="alias">
+                                            <th  style="text-align: center;font-size: 16px; overflow-wrap: break-word;" mat-header-cell *matHeaderCellDef> Alias </th>
+                                            <td style="text-align: center; overflow-wrap: break-word;" mat-cell *matCellDef="let element"> {{element}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="eliminar">
+                                            <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
+                                            <td style="text-align: center;" mat-cell *matCellDef="let element">
+                                                <button mat-stroked-button color="warn" (click)="deleteItemAlias(element)">
+                                                    <mat-icon>cancel</mat-icon> 
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
+                                    </table>
+                                </ng-container>
+                                <ng-template #noDataAlias>No hay alias registrados</ng-template>
+                            </div>
+                        </div>
 
-                        <mat-form-field  appearance="outline">
-                        <mat-label>Alias </mat-label>
-                            <input formControlName="alias" matInput  autocomplete="off" onkeypress="return event.keyCode != 13;"> 
-                        </mat-form-field>
-        
-                        <button 
-                        class="create" (click)="GuardarListaAlias(formDetenido.value)" type="button"
-                            mat-mini-fab color="primary">
-                            <mat-icon>add</mat-icon>
-                        </button>
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+                            <!-- nacionalidad -->
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Nacionalidad</mat-label>
+                                <mat-select formControlName="nacionalidadDetenido">
+                                    <mat-option *ngFor="let opcion of listaNacionalidad"
+                                        [value]="opcion.catNacionalidadID">
+                                        {{opcion.descripcionNacionalidad}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- Sexo  -->
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%"  appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Sexo</mat-label>
+                                <mat-select formControlName="sexoDetenido">
+                                    <mat-option *ngFor="let opcion of listaSexo"
+                                        [value]="opcion.catSexoID">
+                                        {{opcion.genero}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- Fecha de nacimiento -->
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%"  appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Fecha de nacimiento</mat-label>
+                                <input matInput formControlName="fechaDeNacimiento" [matDatepicker]="picker" (dateChange)="calcularFecha()" placeholder="start date" onkeypress="return event.keyCode != 13;">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
 
-                      </div>
-       
-    
-                      <!-- nacionalidad -->
-         
-                <mat-form-field appearance="outline">
-                    <mat-label><strong class="obligatorio">*</strong>Nacionalidad</mat-label>
-                    <mat-select formControlName="nacionalidadDetenido">
-                        <mat-option *ngFor="let opcion of listaNacionalidad"
-                            [value]="opcion.catNacionalidadID">
-                            {{opcion.descripcionNacionalidad}}
-                        </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="space-between center">
+                            <!-- Edad  -->
+                            <mat-form-field fxFlex.gt-sm="15%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label><strong class="obligatorio">*</strong>Edad manifestada por el detenido</mat-label>
+                                <input formControlName="edadDetenido"  matInput   autocomplete="off" (keypress)="validateNumbers($event)" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="15%" fxFlex.gt-xs="100%" fxFlex="100%"  appearance="outline" >
+                                <mat-label>Edad por fecha de nacimiento</mat-label>
+                                <input formControlName="EdadFechaNacimiento" matInput autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>    
+                            <!-- RFC  -->
+                            <mat-form-field fxFlex.gt-sm="20%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label><strong class="obligatorio">*</strong>RFC</mat-label>
+                                <input formControlName="rfcDetenido"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <!-- Lugar de nacimiento  -->
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Entidad nacimiento</mat-label>
+                                <mat-select formControlName="entidadNacimiento" (selectionChange)="getMunicipioByEntidadSelected($event.value)">
+                                    <mat-option *ngFor="let opcion of listaEntidad"
+                                        [value]="opcion.catEntidadFederativaID" >
+                                        {{opcion.estado}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline">
+                                <mat-label><strong class="obligatorio">*</strong>Municipio nacimiento</mat-label>
+                                <mat-select formControlName="municipioNacimiento" >
+                                    <mat-option *ngFor="let opcion of listaMunicipioNacimiento"
+                                        [value]="opcion.catMunicipioID" >
+                                        {{opcion.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
+                        <fury-card-header-heading><h2>Domicilio Particular</h2></fury-card-header-heading>
+                        <div  fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="space-between center">
+                                <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                    <mat-label>Calle</mat-label>
+                                    <input formControlName="calle"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                                <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                    <mat-label>Número</mat-label>
+                                    <input formControlName="numero"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                                <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                    <mat-label>Código Postal</mat-label>
+                                    <input formControlName="codigoPostal"  matInput   autocomplete="off" (keypress)="validateNumbers($event)" onkeypress="return event.keyCode != 13;">
+                                </mat-form-field>
+                        </div>
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="space-between center">
+                            <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline">
+                                <mat-label>Entidad</mat-label>
+                                <mat-select formControlName="entidad" (selectionChange)="getMunicipioByEntidadSelectedDomicilio($event.value)">
+                                    <mat-option *ngFor="let opcion of listaEntidad"
+                                        [value]="opcion.catEntidadFederativaID" >
+                                        {{opcion.estado}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline"> 
+                                <mat-label>Municipio o Aladía</mat-label>
+                                <mat-select formControlName="municipio" (selectionChange) = "getColoniaByMunicipioSelectedDomicilio($event.value)" >
+                                    <mat-option *ngFor="let opcion of listaMunicipioDomicilio"
+                                        [value]="opcion.catMunicipioID" >
+                                        {{opcion.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label>Colonia</mat-label>
+                                <mat-select formControlName="localidad">
+                                    <mat-option *ngFor="let opcion of listaColoniaDomicilio"
+                                        [value]="opcion.catColoniaID" >
+                                        {{opcion.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>     
+                        </div>
 
-                     <!-- observaciones detenido -->
-          
-                <mat-form-field  appearance="outline">
-                 <mat-label>Observaciones </mat-label>
-                    <mat-label><strong ></strong></mat-label>
-                    <textarea class="medium-textarea"  formControlName="observaciones" matInput > </textarea>
-                  </mat-form-field>
-    
-                  
+                        <fury-card-header-heading><h2>Datos Del Familiar</h2></fury-card-header-heading>
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="space-between center">
+                            <!-- nombre del familiar -->
+                            <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label>Nombre</mat-label>
+                                <input formControlName="nombreFamiliar"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label>Apellido paterno </mat-label>
+                                <input formControlName="apellidoPaternoFamiliar"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="30%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label>Apellido Materno </mat-label>
+                                <input formControlName="apellidoMaternoFamiliar"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="space-evenly center">
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label>Parentesco</mat-label>
+                                <input formControlName="parentescoFamiliar"  matInput   autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                            <mat-form-field fxFlex.gt-sm="25%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline" >
+                                <mat-label>Telefono</mat-label>
+                                <input formControlName="telefonoFamiliar"  matInput (keypress)="validateNumbers($event)" autocomplete="off" onkeypress="return event.keyCode != 13;">
+                            </mat-form-field>
+                        </div>
 
-
-
-    </div>
-  </fury-card-content>
-</fury-card>
-
-<fury-card [fxFlex.gt-sm]="col3"
-class="basic-forms route-animations-elements"
-[@fadeInUp]
-fxFlex="grow">
-<fury-card-header>
-<fury-card-header-heading><h2>Alias</h2></fury-card-header-heading>
-
-</fury-card-header>
-<fury-card-content fxLayout="column">
-
-<div class="result" fxLayout="column">
-
-<!-- Tabla alias -->
-<ng-container *ngIf = "listaAlias.length > 0 ;else noDataAlias" contenido>
-
-    <table   mat-table [dataSource]="dataAlias" class="mat-elevation-z8" style="width: 100%;">
-
-        <ng-container  matColumnDef="alias">
-            <th  style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Alias </th>
-            <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="eliminar">
-            <th   style="text-align: center;font-size: 16px" mat-header-cell *matHeaderCellDef> Eliminar</th>
-            <td style="text-align: center;" mat-cell *matCellDef="let element">
-
-                <button mat-stroked-button color="warn" (click)="deleteItemAlias(element)">
-                    <mat-icon>cancel</mat-icon> 
+                        <fury-card-header-heading><h2>Observaciones</h2></fury-card-header-heading>
+                        <div fxLayout.gt-sm="row" fxLayout.gt-xs="column" fxLayout="column"  fxLayoutGap="15px" fxLayoutAlign="center center">
+                            <mat-form-field fxFlex.gt-sm="50%" fxFlex.gt-xs="100%" fxFlex="100%" appearance="outline">
+                                <mat-label>Observaciones</mat-label>
+                                <mat-label><strong ></strong></mat-label>
+                                <textarea class="medium-textarea"  formControlName="observaciones" matInput > </textarea>
+                            </mat-form-field>
+                        </div>
+                    </fury-card-content>
+                </fury-card>
+            </div>
+            <div class="actions" fxLayout="row" fxLayoutAlign="end"  fxLayoutGap="8px">
+                <button mat-stroked-button color="primary" type="submit" [disabled]="formDetenido.invalid || listaDelitos.length == 0 " > 
+                <!-- <button mat-stroked-button color="primary" type="submit"  >  -->
+                    <mat-icon>save</mat-icon> Guardar
                 </button>
+            </div>
+                    <!-- </div> ctions" fxLayout="row" fxLayoutAlign="space-between center"  fxLayoutGap="8px">
 
-            </td>
-        </ng-container>
+                    <div class="a
+                    <button color="primary" mat-button matStepperPrevious type="button">
+                        <mat-icon>chevron_left</mat-icon> Anterior
+                    </button>
 
-        <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
-
-    </table>
-
-</ng-container>
-
-<ng-template #noDataAlias>No hay alias registrados</ng-template>
-
-
-
-</div>
-
-
-</fury-card-content>
-
-</fury-card>
-
-</div>
-<div class="actions" fxLayout="row" fxLayoutAlign="end"  fxLayoutGap="8px">
-          
-  
-
-    <button mat-stroked-button color="primary" type="submit" [disabled]="formDetenido.invalid || listaDelitos.length == 0 " > 
-        <mat-icon>save</mat-icon> Guardar
-    </button>
-
-  </div> 
-<!-- <div class="actions" fxLayout="row" fxLayoutAlign="space-between center"  fxLayoutGap="8px">
-          
-    <button color="primary" mat-button matStepperPrevious type="button">
-        <mat-icon>chevron_left</mat-icon> Anterior
-    </button>
-
-    <button mat-stroked-button color="primary" type="submit" [disabled]="formDetenido.invalid || listaDelitos.length == 0 " > 
-        <mat-icon>save</mat-icon> Guardar
-    </button>
-
-  </div>  -->
-
-
-  
-
-    </fury-page-layout-content>
-</form>
-<!-- </mat-step> -->
-
-
-<!-- </mat-horizontal-stepper> -->
-
+                    <button mat-stroked-button color="primary" type="submit" [disabled]="formDetenido.invalid || listaDelitos.length == 0 " > 
+                        <mat-icon>save</mat-icon> Guardar
+                    </button>
+                </div>  -->
+        </fury-page-layout-content>
+    </form>
+    <!-- </mat-step> -->
+    <!-- </mat-horizontal-stepper> -->
 </div>
 

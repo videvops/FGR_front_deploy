@@ -1,11 +1,13 @@
+import { Nombre } from "./detenidos";
+
 export interface formBuscadorDetenidos{
     fechaIngresoInicial : Date;
     fechaIngresoFinal : Date;
     numeroDetenido : number;
     anio : number;
-    nombre : string;
-    aPaterno : string;
-    aMaterno : string;
+    nombre : Nombre;
+    apPaterno : string;
+    apMaterno : string;
     alias : string;
     nacionaliadID : number;
     oficioRetencion : string;

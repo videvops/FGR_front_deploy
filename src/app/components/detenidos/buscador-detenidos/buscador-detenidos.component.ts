@@ -6,6 +6,7 @@ import { catAutoridadCargoDetencionDTO } from 'src/app/models/catalogos/catAutor
 import { catDelitoDTO } from 'src/app/models/catalogos/catDelito';
 import { catMotivoEgreso } from 'src/app/models/catalogos/catMotivoEgreso';
 import { catNacionalidadDTO } from 'src/app/models/catalogos/catNacionalidad';
+import { Nombre } from 'src/app/models/detenidos/detenidos';
 import { formBuscadorDetenidos } from 'src/app/models/detenidos/formBuscador';
 import { MyErrorStateMatcher } from 'src/app/models/seguridad/usuarios/error-state-matcher';
 import { CatalogosService } from 'src/app/services/common/catalogos.service';
@@ -53,8 +54,8 @@ export class BuscadorDetenidosComponent implements OnInit {
       anio:[new Date().getUTCFullYear().toString()],
       nacionalidadID: [],
       nombre:[],
-      aPaterno:[],
-      aMaterno:[],
+      apPaterno:[],
+      apMaterno:[],
       alias:[],
       oficioRetencion:[],
       dependenciaDetencionID:[],
@@ -63,9 +64,6 @@ export class BuscadorDetenidosComponent implements OnInit {
       fechaEgresoFinal :[],
       motivoEgresoID : [],
       ficha : [false],
-    
-  
-      
     });
 
     //Se llena los select con el servicio
@@ -90,13 +88,8 @@ export class BuscadorDetenidosComponent implements OnInit {
     })
   }
 
-
-      buscar(busqueda : formBuscadorDetenidos){
-        this.emisorFormulario.emit(busqueda);
-        // console.log(busqueda);
-       }
-
-
-
-      
+  buscar(busqueda : formBuscadorDetenidos ){
+    console.log(busqueda)
+    this.emisorFormulario.emit(busqueda);
+    }
 }

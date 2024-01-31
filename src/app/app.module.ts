@@ -22,6 +22,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   imports: [
@@ -41,7 +43,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
     // Register a Service Worker (optional)
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-
+    MatIconModule,
     SweetAlert2Module.forRoot(),
    MatAutocompleteModule,
    FormsModule,
